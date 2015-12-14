@@ -1,0 +1,46 @@
+
+{% extends 'restaurant/base.html'%}
+
+{% block content %}
+
+{% if form.errors %}
+<p>Your username and password didn't match. Please try again.</p>
+{% endif %}
+<br>
+
+
+    <div id=container class="visible-xs-*">
+        <div class="row">
+            <div class="col-md-4">
+                <h2 class="page-header"><b>Recomet Tijuana</b></h2>  
+                <div class="thumbnail">
+                    <h4>Please login.</h4>
+                    <hr>
+                        
+                    <form method="post" action="{% url 'django.contrib.auth.views.login' %}">{% csrf_token %}
+                    <table align="center">
+                    <tr>
+                        <td>{{ form.username.label_tag }}</td>
+                        <td>{{ form.username }}</td>
+                    </tr>
+                    <tr >
+                        <td>{{ form.password.label_tag }}</td>
+                        <td>{{ form.password }}</td>
+                        
+                    </tr>
+                    </table><br>
+            
+                    <input type="submit" value="Login" class="btn btn-default pull-right"/><br><br><br>
+                    </form>
+                </div>
+                <b><div class="text-danger">If you do not have an username, please <a href="/accounts/register/">register.</a></div><b><br>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+
+
+
