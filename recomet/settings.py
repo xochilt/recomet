@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'recomet',
         'USER': 'postgres',
-        'PASSWORD':'admin',
+        'PASSWORD':'password',
         'HOST': 'localhost',
         'PORT':'5432'
     }
@@ -156,13 +156,13 @@ EMAIL_HOST = 'smtp.gmail.com'
 
 EMAIL_PORT = 587
 
-EMAIL_HOST_USER = 'xochilt.ramirez@gmail.com'
+EMAIL_HOST_USER = 'email@email.com'
 
-EMAIL_HOST_PASSWORD = 'daeqocohhicmhkvu'   #passwd de apps de google
+EMAIL_HOST_PASSWORD = ''   #passwd de apps de google
 
 EMAIL_USE_TLS = True
 
-DEFAULT_FROM_EMAIL = 'xochilt.ramirez@gmail.com'
+DEFAULT_FROM_EMAIL = 'email@email.com'
 
  
  
