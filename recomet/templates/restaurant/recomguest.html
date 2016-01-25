@@ -1,0 +1,107 @@
+{%extends 'restaurant/base.html'%}
+
+{% block content %}
+<!-- Navigation -->
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="http://i.imgur.com/VTwHzHA.png" height="" width="" class="img-thumbnail">
+        </div>
+        <div class="col-md-10">
+            
+        <nav class="navbar navbar-default inverse"> <!--class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
+    
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+               
+                </button>
+                </div>
+               
+                <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <!--li class="active">
+                        <a href="/recomet/" >Home</a>
+                    </li-->
+                    <li class="active">
+                         <a href="/recomet/guest/"> Community </a>
+                    </li>
+                    <li>
+                        <a href="/accounts/register"> Register  </a> 
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/accounts/login/"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+        </div>   
+    </div>
+</div>
+
+<h2 class="page-header"><b>Popular restaurants</b></h2>
+
+<div id=container class="visible-xs-*">
+        {% if popularity %}
+        <div class="row">
+        {% for i in popularity %}
+                <div class="col-md-3">
+                    <div class="thumbnail">
+                            {% if i.rest.url %}<a href="{{i.rest.url}}"> <img  src="{{i.rest.urlimg}}"  class="img-thumbnail" width="280" height="200"></a> {% else %} <img  src="{{i.rest.urlimg}}"  class="img-thumbnail" width="280" height="200">{% endif %}
+                            <form action="." method="GET">
+                            <p>  </p>
+                            <div class="thumbnail">        
+                                        {% if i.rest.url %}<p>&nbsp;<h4><a href="{{r.url}}"><b>{{ i.rest.name }}</b></a></h4></p>   {% else %}   <p><h4><b>&nbsp;{{ i.rest.name}}</b></h4></p>{% endif %}
+                                        {% if i.rating_avg == 1 %}
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        {% endif %}
+                                        {% if i.rating_avg == 2 %}
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span>   
+                                        {% endif %}
+                                        {% if i.rating_avg == 3 %}
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        {% endif %}
+                                        {% if i.rating_avg == 4 %}
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                        {% endif %}
+                                        {% if i.rating_avg == 5 %}
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span> 
+                                        {% endif %}
+                                    <br>
+                                    <p><span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> &nbsp;<i>{{ i.rest.address }}</i></p>
+                                    {% if i.rest.phone %}<p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp;<i>{{ i.rest.phone }}</i></p>{% endif %}
+                                    {% if i.rest.url %}<p><span class="glyphicon glyphicon-link" aria-hidden="true"></span><b>&nbsp;<a href="{{r.url}}"><i class="small">{{ i.rest.url }}</i> </a>{% endif %}</b></p>    
+                            </div>
+                            <div class="thumbnail">
+                                <h4><b>Additional Information</b></h4>
+                                    City :<b>{{ i.rest.city }}</b><br>
+                                    Price range :<b>{{ i.rest.price_range.type_price }}</b><br>
+                                    Alcohol :<b>{{ i.rest.alcohol.type_alcohol }}</b><br>
+                                    Smoking area :<b>{% if i.rest.smoking_area == 0 %}Yes{% else %} No {% endif %}</b><br>
+                                    Dress code :<b>{{ i.rest.dress_code.type_dresscode }}</b><br>
+                                    Atmosphere :<b>{{ i.rest.atmosphere.type_atmosphere}}</b><br>
+                                    Coords. :<b>{{ i.rest.latitude }}, {{ i.rest.longitude }}</b><br>
+                                    <i class="small">Registered on {{ i.datet }}</i><br>
+                            </div>
+                            </form>
+                    </div>
+               </div>
+        {% endfor %}
+        </div>
+        {% else %}
+            <div>
+                <b class="small"><img  width="20" height="20" src="http://i.imgur.com/QCOoOv4.png" />
+                <font color="red"> No restaurants found. </font></b>
+            </div>
+            
+        {% endif %}
+
+</div>
+
+{% endblock %}  
+    

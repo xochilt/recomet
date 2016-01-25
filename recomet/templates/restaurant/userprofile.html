@@ -1,0 +1,344 @@
+
+
+{% extends 'restaurant/base.html'%}
+
+{% block content%}
+    <meta charset="utf-8">
+    <style>
+    #map-canvas {
+        height: 500px;
+        width: 500px;
+    }
+    </style>
+    
+    
+<div class="container">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="http://i.imgur.com/VTwHzHA.png" height="" width="" class="img-thumbnail">
+        </div>
+        <div class="col-md-10">
+            
+        <nav class="navbar navbar-default inverse"> <!--class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
+    
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                </div>
+               
+                <div class="collapse navbar-collapse" id="myNavbar">
+                <ul class="nav navbar-nav">
+                    <li><a href="/recomet/">Home</a></li>
+                    <li><a href="/recomet/recomtest/">Recommendations</a></li>
+                    <li ><a href="/recomet/user/profile/{{ u.user.id }}/">My Profile</a></li>
+                    <li><a href="/recomet/usercontext/{{u.user.id}}/">My Context</a></li>
+                    <li><a href="/recomet/wishlist/{{u.user.id}}/">My Wishlist</a></li>
+                    <li><a href="/recomet/topten/">Community</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                  <li><a href="/accounts/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                </ul>
+                </div>
+            </div>
+        </nav>
+        </div>
+    </div>
+</div>
+    
+
+<div>
+     {% if u != 'Guest'%}
+        <center> <p class="small">Login as <b>{{ u }}.</b></p></center>
+    {% endif %}
+</div> 
+
+<div class="container">
+    <div class="row">
+            <div class="col-md-4" >
+                <h3 class="page-header"><b>Contextual Information</b></h3>
+                <p>Please, select your preferences.</p>
+                
+                <div class="thumbnail" id="context">
+                    <div class="caption">
+                        
+                        <form method="POST" id="context" action="">{% csrf_token %}
+                        {{ form.as_p }} <br>
+                        <br>
+                        <p id="msg" ></p>
+                        <button type="submit" id="send" class="btn btn-primary pull-right">Save</button>
+                        <!--input type="submit" class="btn btn-primary pull-right " id="send" value="Submit" /--><br><br>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
+
+    
+
+            <div class="col-md-6">
+                <h3 class="page-header"><b>Current location </b></h3>
+                <div class="thumbnail">
+                        <div id="demo"> 
+                            <form class="form-inline" role="form">
+                                <div class="form-group">
+                                   <label for="lat">Latitude:</label>
+                                   <input type="text" class="form-control" id="lat">
+                                </div>
+                                <div class="form-group">
+                                   <label for="lon">Longitude:</label>
+                                   <input type="text" class="form-control" id="lon">
+                                </div>
+                                
+                            </form>
+                        </div> 
+                        <div class="caption"> 
+                            <!--
+                            <button class="btn btn-default" id="location">Share Location</button>
+                            <p id="demo">  </p>-->
+                                <div id="map-canvas" class="img-responsive" alt="My location" >            
+                                </div>
+                        </div>
+                        <div id="thanks" class="pull-right"></div><br>
+                        <button class="btn btn-success pull-right" id="location">Save My Location</button><br><br>
+                        
+                    
+                </div>
+            </div>
+    </div>
+</div>
+
+<br><br>
+
+<script>
+
+//OBTENER LAS COORDENADAS DE LA UBICACION ACTUAL DEL USUARIO.
+$( document ).ready(function() {
+    
+
+        
+   $("#location").click(function (){
+        var latitude= $('#lat').val();
+        var longitude= $('#lon').val();
+        var msg = "<font color='green'><b>Thank you!!</font></b>";
+        document.getElementById('thanks').innerHTML = msg;
+        $("#thanks").fadeIn();
+        //document.getElementById('message').innerHTML = msg;
+                                $.ajaxSetup({
+                                    beforeSend: function(xhr, settings) {
+                                    function getCookie(name) {
+                                           var cookieValue = null;
+                                           if (document.cookie && document.cookie != '') {
+                                               var cookies = document.cookie.split(';');
+                                               for (var i = 0; i < cookies.length; i++) {
+                                                   var cookie = jQuery.trim(cookies[i]);
+                                                   // Does this cookie string begin with the name we want?
+                                                   if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                                       cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                       break;
+                                                   }
+                                               }
+                                           }
+                                           return cookieValue; 
+                                    }
+                                       if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                                           // Only send the token to relative URLs i.e. locally.
+                                           xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                                        }
+                                    }
+                                });
+       $.ajax({
+               type: "POST",
+               url: "/recomet/location/",
+               data: JSON.stringify({"latitude":latitude, "longitude":longitude}),
+               dataType: "json",
+               contentType:"application/json",
+               success: function(data) {
+                    //alert('thanks for add....');
+                    //var jsonStr = JSON.stringify(data, null, 4);
+                    //alert(jsonStr);             
+                }
+       });
+   });
+   
+   
+   
+   $('.btn-primary').click(function (){
+        
+        //$("#context").hide(); //formulario de contexto  
+        //$('#send').hide();
+        document.getElementById('msg').innerHTML = "<font color='red'><b>Enviando los datos...</b></font>";
+        
+        //document.getElementById('message').innerHTML = msg;
+                                $.ajaxSetup({
+                                    beforeSend: function(xhr, settings) {
+                                    function getCookie(name) {
+                                           var cookieValue = null;
+                                           if (document.cookie && document.cookie != '') {
+                                               var cookies = document.cookie.split(';');
+                                               for (var i = 0; i < cookies.length; i++) {
+                                                   var cookie = jQuery.trim(cookies[i]);
+                                                   // Does this cookie string begin with the name we want?
+                                                   if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                                                       cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                                       break;
+                                                   }
+                                               }
+                                           }
+                                           return cookieValue; 
+                                    }
+                                       if (!(/^http:.*/.test(settings.url) || /^https:.*/.test(settings.url))) {
+                                           // Only send the token to relative URLs i.e. locally.
+                                           xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
+                                        }
+                                    }
+                                });
+       $.ajax({
+               type: "GET",
+               //url: "",
+               //data: JSON.stringify({"latitude":latitude, "longitude":longitude}),
+               dataType: "json",
+               contentType:"application/json",
+               success: function(data) {
+                    //alert('thanks for add....');
+                    //var jsonStr = JSON.stringify(data, null, 4);
+                    //alert(jsonStr);             
+                }
+       });
+   });
+   
+   
+   
+});
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
+
+<script>
+// Note: This example requires that you consent to location sharing when
+// prompted by your browser. If you see a blank space instead of the map, this
+// is probably because you have denied permission for location sharing.
+
+var map;
+
+function initialize() {
+  var mapOptions = {
+    zoom: 6
+  };
+  map = new google.maps.Map(document.getElementById('map-canvas'),
+      mapOptions);
+
+  // Try HTML5 geolocation
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+      var pos = new google.maps.LatLng(position.coords.latitude,
+                                       position.coords.longitude);
+
+      var infowindow = new google.maps.InfoWindow({
+        map: map,
+        position: pos,
+        content: 'My location.',
+        title: 'My location'
+      });
+
+    var x = document.getElementById("lat");
+    var y = document.getElementById("lon");
+    var me = this;
+    //x.innerHTML = position.coords.latitude;
+    //y.innerHTML = position.coords.longitude;
+        x.value=position.coords.latitude;
+        y.value=position.coords.longitude;
+    
+    //alert(me.location);
+
+      map.setCenter(pos);
+      
+      //var marker = new.google.maps.Marker({
+      //  position:location,
+      //  map: map,
+      //});
+      //
+      //var infowindow = new.google.maps.InfoWindow({
+      //  content: 'Latitude:'+ location.lat()+ '<br> Longitude:' + location.lng();
+      //});
+      //
+      //infowindow.open(map,marker);
+      
+      
+      
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } else {
+    // Browser doesn't support Geolocation
+    handleNoGeolocation(false);
+  }
+}
+
+function handleNoGeolocation(errorFlag) {
+  if (errorFlag) {
+    var content = 'Error: The Geolocation service failed.';
+  } else {
+    var content = 'Error: Your browser doesn\'t support geolocation.';
+  }
+
+  var options = {
+    map: map,
+    position: new google.maps.LatLng(60, 105),
+    content: content
+  };
+
+  var infowindow = new google.maps.InfoWindow(options);
+  map.setCenter(options.position);
+  
+}
+
+google.maps.event.addDomListener(window, 'load', initialize);
+
+
+ </script>
+
+
+
+
+
+
+
+
+ 
+{% endblock%}
+
+
+
+
+
+
+
+
+
+
+
+
+
+                        
+<div class="panel panel-default">
+<div class="panel-heading"><h3><b>{{ u }}'s Context</b></h3></div>
+  {% if msg %}
+    <div class="panel-body">
+        "{{ msg }}"
+     </div>
+  {% else %}
+    <div class="panel-body">
+      <form method="POST" action=".">{% csrf_token %}
+      {{ form.as_p }} <br>
+      <input type="submit" id="enviar" value="Submit" />
+      </form>
+    </div>
+  {% endif %}
+</div>
+
+
