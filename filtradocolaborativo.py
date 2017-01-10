@@ -26,9 +26,6 @@ def filtradoColaborativo(iduser):
     #Cambian las recomendaciones con cada diccionario generado por el sistema.
     pearson_recs = getRecommendations(us_it,iduser,similarity=sim_pearson)
     euclidean_recs = getRecommendations(us_it,iduser,similarity=sim_distance)
-        
-    #print 'pearson_recs', pearson_recs
-    #print 'euclidean_recs', euclidean_recs
 
     list_items=[]  
     if pearson_recs:
@@ -96,10 +93,9 @@ def sim_distance(prefs,person1,person2):
     si={}
     for item in prefs[person1]: 
       if item in prefs[person2]: si[item]=1
-  
+    
     # Si ellos no tienen ratings en comun, regresa 0.
     if len(si)==0: return 0
-  
     # Agrega la raiz de todas las diferencias.
     sum_of_squares=sum([pow(prefs[person1][item]-prefs[person2][item],2) 
                         for item in prefs[person1] if item in prefs[person2]])
@@ -117,17 +113,13 @@ def sim_pearson(prefs,p1,p2):
     si={}
     for item in prefs[p1]: 
       if item in prefs[p2]: si[item]=1
-  
     # Si no hay ratings en comun, regresa 0.
     if len(si)==0: return 0
-  
     # Suma de los calculos.
     n=len(si)
-    
     # Suma de todas las preferencias.
     sum1=sum([prefs[p1][it] for it in si])
     sum2=sum([prefs[p2][it] for it in si])
-    
     # Suma de las raices cuadradas.
     sum1Sq=sum([pow(prefs[p1][it],2) for it in si])
     sum2Sq=sum([pow(prefs[p2][it],2) for it in si])	
@@ -138,14 +130,14 @@ def sim_pearson(prefs,p1,p2):
     # Calcular r (Pearson score)
     num=pSum-(sum1*sum2/n)
     den=sqrt((sum1Sq-pow(sum1,2)/n)*(sum2Sq-pow(sum2,2)/n))
-    if den==0: return 0
-  
+    if den==0: 
+        return 0
     r=num/den
     return r
   else:
     return r
   
-  
+#Test dictionary for collaborative filtering recommendations.  
 critics={'1':{'Aki Sushi de Playas':5.0,'Arbio Restaurante':5.0,'Tai Ki Shi':4.0,'Rincon San Roman':2.0, 'Italianisimo':3.0,'Lorca':4.0},
 '2': {'Aki Sushi de Playas':4.0,'Yogurt Place':3.0,'Akira Terriyaqui':1.0,'Arbio Restaurante':5.0,'Lorca':5.0,'Italianisimo':3.0,'Tai Ki Shi':4.0},
 '3':{'Aki Sushi de Playas':3.0,'Yogurt Place':3.0,'Akira Terriyaqui':2.0,'Arbio Restaurante':5.0,'Rincon San Roman':3.0,'Italianisimo':3.0,'Tai Ki Shi':4.0},
