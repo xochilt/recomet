@@ -1,7 +1,9 @@
-from django.contrib import admin
-
+#Admin file for site administration.
 #!/usr/bin/env python
-from restaurant.models import Container, Rating, Item, Container_User, Review, UserProfile, Restaurant, RestaurantChain, PointOfInterest
+from django.contrib import admin
+from restaurant.models import Container, Rating, Item, 
+                              Container_User, Review, UserProfile, Restaurant, 
+                              RestaurantChain, PointOfInterest
 from django.contrib import admin
 
 
