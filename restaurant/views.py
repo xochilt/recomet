@@ -1,4 +1,3 @@
-# VIEWS
 #-*- coding: utf-8 -*-
 from django.shortcuts import render
 from django.http import Http404, HttpResponse, HttpResponseRedirect
@@ -40,14 +39,11 @@ from pyproj import *
 
 import datetime
 from datetime import *
-
 #Librerias para la union de listas en entropia.
 import heapq
 from heapq import merge
-
 import dateutil 
 from dateutil.relativedelta import *
-
 from django.core import serializers
 import json
 
@@ -62,16 +58,8 @@ def index(request):
     if request.method=='POST':   
         u = request.user.profile
         user=u.user.username
-        print "Entra a Post con nuevas variables..."
         #datajson= json.dumps(json.loads(request.body))
         json_data = json.loads(request.body)
-        
-        #dropdowntxt = json_data['dropdowntxt']
-        #tablevalue = json_data['dropdownval']['0']['value'] #Id de la lista de atributos.
-        #print 'tablevalue', tablevalue
-        #print 'dropdowntxt', dropdowntxt
-        #t.append(tablevalue)
-        #t.append(dropdowntxt)
         dropdowntxt=json_data['menutxt']
         tablevalue=json_data['menuval']['0']['value']
         print 'dropdowntxt',dropdowntxt
@@ -84,71 +72,113 @@ def index(request):
             print 'entro a 1'
             table = Pricerange.objects.get(type_price=dropdowntxt) #Obtenemos el tipo
             query = Restaurant.objects.filter(price_range_id=table.id)#Obtenemos los que coinciden
-            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 'description':q.description, 'price': table.type_price, 'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 'cuisine': q.cuisine_id, 'parking': q.parking_id, 'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}        
-
+            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 
+                                  'description':q.description, 'price': table.type_price, 
+                                  'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 
+                                  'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 
+                                  'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 
+                                  'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 
+                                  'cuisine': q.cuisine_id, 'parking': q.parking_id, 
+                                  'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}        
         #Instalation
         elif tablevalue=='2':
             print 'entro a 2'
             table = Instalation.objects.get(type_instalation=dropdowntxt) #Obtenemos el tipo
             query = Restaurant.objects.filter(instalation_id=table.id)#Obtenemos los que coinciden
-            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 'description':q.description, 'price': q.price_range_id, 'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 'cuisine': q.cuisine_id, 'parking': q.parking_id, 'payment': q.payment_id, 'instalation': table.type_instalation }  for q in query ]}        
-
+            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 
+                                  'description':q.description, 'price': q.price_range_id, 
+                                  'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 
+                                  'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 
+                                  'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 
+                                  'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 
+                                  'cuisine': q.cuisine_id, 'parking': q.parking_id, 
+                                  'payment': q.payment_id, 'instalation': table.type_instalation }  for q in query ]}        
         #Parking
         elif tablevalue=='3':
             print 'entro a 3'
             table = Parking.objects.get(type_parking=dropdowntxt) #Obtenemos el tipo
             query = Restaurant.objects.filter(parking_id=table.id)#Obtenemos los que coinciden
-            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 'description':q.description, 'price': q.price_range_id, 'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 'cuisine': q.cuisine_id, 'parking': table.type_parking, 'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}         
-            
+            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 
+                                  'description':q.description, 'price': q.price_range_id, 
+                                  'url': q.url, 'phone': q.phone, 'hours':q.hours,
+                                  'city':q.city, 'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 
+                                  'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 
+                                  'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 
+                                  'cuisine': q.cuisine_id, 'parking': table.type_parking, 
+                                  'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}         
         #Atmosphere
         elif tablevalue=='4':
             print 'entro a 4'
             table = Atmosphere.objects.get(type_atmosphere=dropdowntxt) #Obtenemos el tipo
             query = Restaurant.objects.filter(atmosphere_id=table.id)#Obtenemos los que coinciden
-            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 'description':q.description, 'price': q.price_range_id, 'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 'atmosphere':table.type_atmosphere, 'urlimg':q.urlimg, 'cuisine': q.cuisine_id, 'parking': q.parking_id, 'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}        
-            
+            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 
+                                  'description':q.description, 'price': q.price_range_id, 
+                                  'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 
+                                  'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 
+                                  'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 
+                                  'atmosphere':table.type_atmosphere, 'urlimg':q.urlimg, 
+                                  'cuisine': q.cuisine_id, 'parking': q.parking_id, 
+                                  'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}         
         #Payment
         elif tablevalue=='5':
             print 'entro a 5'
             table = Payment.objects.get(type_payment=dropdowntxt) #Obtenemos el tipo
             query = Restaurant.objects.filter(payment_id=table.id)#Obtenemos los que coinciden
-            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 'description':q.description, 'price': q.price_range_id, 'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 'cuisine': q.cuisine_id, 'parking': q.parking_id, 'payment': table.type_payment, 'instalation': q.instalation_id }  for q in query ]}        
-            
+            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 
+                                  'description':q.description, 'price': q.price_range_id, 
+                                  'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 
+                                  'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 
+                                  'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 
+                                  'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 
+                                  'cuisine': q.cuisine_id, 'parking': q.parking_id, 
+                                  'payment': table.type_payment, 'instalation': q.instalation_id }  for q in query ]}        
         #Dresscode
         elif tablevalue=='6':
             print 'entro a 6'
             table = Dresscode.objects.get(type_dresscode=dropdowntxt) #Obtenemos el tipo
             query = Restaurant.objects.filter(dress_code_id=table.id)#Obtenemos los que coinciden
-            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 'description':q.description, 'price': q.price_range_id, 'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 'alcohol': q.alcohol_id, 'dresscode':table.type_dresscode, 'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 'cuisine': q.cuisine_id, 'parking': q.parking_id, 'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}        
-
-       #Alcohol
+            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 'description':q.description, 
+                                  'price': q.price_range_id, 'url': q.url, 'phone': q.phone, 
+                                  'hours':q.hours,'city':q.city, 'state':q.state, 'country':q.country, 
+                                  'zipcode':q.zipcode, 'alcohol': q.alcohol_id, 'dresscode':table.type_dresscode, 
+                                  'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 'cuisine': q.cuisine_id, 
+                                  'parking': q.parking_id, 'payment': q.payment_id, 
+                                  'instalation': q.instalation_id }  for q in query ]}        
+            #Alcohol
         elif tablevalue=='7':
             print 'entro a 7'
             table = Alcohol.objects.get(type_alcohol=dropdowntxt) #Obtenemos el tipo
             query = Restaurant.objects.filter(alcohol_id=table.id)#Obtenemos los que coinciden
-            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 'description':q.description, 'price': q.price_range_id, 'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 'alcohol': table.type_alcohol, 'dresscode':q.dress_code_id, 'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 'cuisine': q.cuisine_id, 'parking': q.parking_id, 'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}        
-          
-        #Cuisine
+            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 
+                                  'description':q.description, 'price': q.price_range_id, 
+                                  'url': q.url, 'phone': q.phone, 'hours':q.hours,
+                                  'city':q.city, 'state':q.state, 'country':q.country, 
+                                  'zipcode':q.zipcode, 'alcohol': table.type_alcohol, 
+                                  'dresscode':q.dress_code_id, 'atmosphere':q.atmosphere_id, 
+                                  'urlimg':q.urlimg, 'cuisine': q.cuisine_id, 'parking': q.parking_id, 
+                                  'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}        
+          #Cuisine
         elif tablevalue=='8':
             print 'entro a 8'
             table = Cuisine.objects.get(cuisine=dropdowntxt) #Obtenemos el tipo
             query = Restaurant.objects.filter(cuisine_id=table.id)#Obtenemos los que coinciden
-            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 'description':q.description, 'price': q.price_range_id, 'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 'cuisine': table.cuisine, 'parking': q.parking_id, 'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}        
-            
+            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 
+                                  'description':q.description, 'price': q.price_range_id, 
+                                  'url': q.url, 'phone': q.phone, 'hours':q.hours,
+                                  'city':q.city, 'state':q.state, 'country':q.country, 
+                                  'zipcode':q.zipcode, 'alcohol': q.alcohol_id, 
+                                  'dresscode':q.dress_code_id, 'atmosphere':q.atmosphere_id, 
+                                  'urlimg':q.urlimg, 'cuisine': table.cuisine, 'parking': q.parking_id, 
+                                  'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}        
         #Dumps para los datos del query.
         jd=json.dumps(res)
-        print jd
-        
         return HttpResponse(jd, content_type='application/json')
-        
     else:
         rat = Rating.objects.filter(user=u)
         query = Restaurant.objects.all()
         time = datetime.now()
         reviews = Review.objects.all()
-        #Reviews de hoy...............................
         qreviews = reviews.filter(review_time__gte=date.today())[:3]
-        #reviews.sort(reverse=True)
         random_rest = Rating.objects.filter(rating=5)#[:4]
         rests=[]
         if random_rest:
@@ -156,17 +186,14 @@ def index(request):
                 r=Restaurant.objects.get(id=i.id_item_id)
                 if r in rests:continue
                 rests.append(r)    
-       
-        if not rat: 
+       if not rat: 
             msg = "You didn't add any rating. Please vote to get recommendations."
-        
         ratings = Rating.objects.values_list('user','id_item','rating')#.filter(interested=0)
         #Depurar la lista para eliminar usuarios repetidos.
         item_list = []
         for i in ratings:
              if i[1] not in item_list:
                  item_list.append(i[1])
-
         dt = datetime.now()
         pop_item=[]
         for i in item_list:
@@ -179,8 +206,10 @@ def index(request):
                      c=c+1 
                      sum = sum + float(r[2])
              avg=sum/float(c)
-            
-             pop = Popularity (rest = Restaurant.objects.get(id=i) , users_amount = c, rating_avg=float(avg), datet = dt )
+             pop = Popularity (rest = Restaurant.objects.get(id=i) , 
+                               users_amount = c, 
+                               rating_avg=float(avg), 
+                               datet = dt )
              pop.save()
 
         #Ampliar el rango de rating_avg para obtener mas restaurantes
@@ -191,13 +220,10 @@ def index(request):
             if popit in pop_item:continue            
             pop_item.append(popit)
         
-        #print 'pop item',pop_item
-        
         if request.user.is_authenticated():
             u = request.user.profile
         else:
             u='Guest'
-  
         return render_to_response('restaurant/index.html', locals(), context_instance=RequestContext(request)) 
 
 
@@ -278,9 +304,6 @@ def userprofile(request, iduser): #envia el usuario.
             return render_to_response('restaurant/userprofile.html',locals(), context_instance=RequestContext(request))
     else:
         #validar el mensaje del usuario para actualizar o registrar por primera vez.
-        #if u.price_id and u.location and u.atribute and u.cuisine:
-        #    msg="YA TIENES UN PERFIL ACTUALIZADO...CHECAR PARA HACER GET DE DATOS Y FORMULARIO"
-        #    return render_to_response('restaurant/userprofile.html',locals(), context_instance=RequestContext(request)) 
         ##Primero entra a GET
         #else:
             form = ProfileForm()
@@ -302,7 +325,6 @@ def temp_user(request,iduser):
     for i in favorites:
         r = Restaurant.objects.get(id=i.id_item.id)
         fv.append(r)
-      
     price=""
     #Rango de precios que prefiere el usuario.
     if(u.price==1):
@@ -315,7 +337,8 @@ def temp_user(request,iduser):
         price='Expensive'
     if(u.price==5):
         price='Very expensive'
-    return render_to_response('restaurant/temp_user.html',locals(),context_instance=RequestContext(request)) 
+    return render_to_response('restaurant/temp_user.html',locals(),
+                              context_instance=RequestContext(request)) 
 
 
 #--------------------------------------------
@@ -323,9 +346,7 @@ def temp_user(request,iduser):
 #--------------------------------------------
 def recommendations_view(request,iduser):    
     u = request.user.profile
-
     w_avg, g_avg, rExp, pc, pr, sim,  profileVectors, itemsUser, recomend, bc_item, rests, cf_rec =fisIntegrador(request, u.id)
-    
     ppesos = w_avg  #promedio de pesos
     pgral = g_avg  #promedio general
     recom1 = rExp  #primera recomendacion del experto
@@ -336,12 +357,9 @@ def recommendations_view(request,iduser):
     
     q = Distance_poi.objects.filter(user=u)
     q.delete()
-    
     restnear=[]
-    
     if rests:
         for i in rests:
-            print 'i.id...', i.id
             dis = dist_haversine(32.529084, -116.9885298, i.latitude, i.longitude)
             if dis<=2.0 and i not in restnear:
                     restnear.append(i)
@@ -355,20 +373,18 @@ def recommendations_view(request,iduser):
                 restnear.append(i)
                 dp = Distance_poi(user = request.user.profile, date=now, latitude=i.latitude, longitude=i.longitude, poi=i, dis=dis, recom=2)
                 dp.save()
-   
-    if cf_rec:
+   if cf_rec:
         for i in cf_rec:
             dis = dist_haversine(32.529084, -116.9885298, i.latitude, i.longitude)
             if dis<=2.0 and i not in restnear:
                     dp = Distance_poi(user = request.user.profile, date=now, latitude=i.latitude, longitude=i.longitude, poi=i, dis=dis, recom=3)
                     dp.save()
                     restnear.append(i)
-           
     q = Distance_poi.objects.filter(user=u)
     return render_to_response('restaurant/recomtest.html',locals(),context_instance=RequestContext(request))
 
 
-#RECOMENDACIONES PARA USUARIOS NO REGISTRADOS OBTENIDAS POR POPULARIDAD.
+#RECOMENDACIONES PARA USUARIOS NO REGISTRADOS OBTENIDAS POR POPULARIDAD.----------------SEGUIR AQUI MA;ANA.
 def recomguest(request):
     #-----------------------
     # Votos por popularidad para cada item de la base de datos.
