@@ -1,12 +1,15 @@
 #!/usr/bin/env python
 from django.forms import ModelForm
-from restaurant.models import UserProfile, Restaurant, Rating, Review, Pricerange
+from restaurant.models import UserProfile, Restaurant, 
+                            Rating, Review, Pricerange
 from django import forms
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from django_countries.widgets import CountrySelectWidget
 
-class UserForm(ModelForm): #Para completar el perfil.
+
+class UserForm(ModelForm): 
+    #Para completar el perfil.
     class Meta:
         model=User
         fields  = ('first_name', 'last_name')
@@ -14,10 +17,14 @@ class UserForm(ModelForm): #Para completar el perfil.
     def __unicode__(self):
         return self.user
     
-class ProfileForm(ModelForm): #Para completar el perfil.
+    
+class ProfileForm(ModelForm): 
+    #Para completar el perfil.
     class Meta:
         model=UserProfile
-        exclude = ('latitude', 'longitude','user','container', 'reviews', 'ratings', 'first_name', 'last_name', 'address', 'location')
+        exclude = ('latitude', 'longitude','user','container', 
+                   'reviews', 'ratings', 'first_name', 'last_name', 
+                   'address', 'location')
 
     def __unicode__(self):
         return self.user
@@ -35,13 +42,16 @@ class RestForm(ModelForm):
 class RatingForm(ModelForm):
     class Meta:
         model = Rating
-        exclude = ('id_item', 'user', 'date', 'id_dimension', 'interested')
+        exclude = ('id_item', 'user', 'date', 
+                   'id_dimension', 'interested')
+        
     def __unicode__(self):
         return self.user.user.first_name
     
     
 class DistForm(forms.Form):
-    poi = forms.ModelChoiceField(queryset=Restaurant.objects.all().order_by('name'))
+    poi = forms.ModelChoiceField(
+        queryset=Restaurant.objects.all().order_by('name'))
 
 
 class ReviewForm(ModelForm):
@@ -53,8 +63,8 @@ class ReviewForm(ModelForm):
     def __unicode__(self):
         return self.title
 
-
-
+    
 class PriceForm(forms.Form):
-    price = forms.ModelChoiceField(queryset=Pricerange.objects.all().order_by('id'))
+    price = forms.ModelChoiceField(
+        queryset=Pricerange.objects.all().order_by('id'))
 
