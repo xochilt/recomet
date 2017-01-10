@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 #-*-encoding: utf-*-
+#File to start database for the restaurant app.
 import datetime
 from restaurant.models import *
 
@@ -92,13 +93,29 @@ rr.save()
 
 RestaurantChain.objects.all().delete()
 
-rc=RestaurantChain.objects.create(id=1, is_international=True, name=u'Burguer King', speciality='Rapida', year_founded=0, locations_worldwide=1)
+rc=RestaurantChain.objects.create(id=1, is_international=True, 
+                                  name=u'Burguer King', 
+                                  speciality='Rapida', 
+                                  year_founded=0, 
+                                  locations_worldwide=1)
 rc.save()
-rc=RestaurantChain.objects.create(id=2, is_international=True, name=u'Mc Donals', speciality='Rapida', year_founded=0, locations_worldwide=1)
+rc=RestaurantChain.objects.create(id=2, is_international=True, 
+                                  name=u'Mc Donals', 
+                                  speciality='Rapida', 
+                                  year_founded=0, 
+                                  locations_worldwide=1)
 rc.save()
-rc=RestaurantChain.objects.create(id=3, is_international=True, name=u'Restaurantes Mexicanos', speciality='Mexican', year_founded=0, locations_worldwide=1)
+rc=RestaurantChain.objects.create(id=3, is_international=True, 
+                                  name=u'Restaurantes Mexicanos', 
+                                  speciality='Mexican', 
+                                  year_founded=0, 
+                                  locations_worldwide=1)
 rc.save()
-rc=RestaurantChain.objects.create(id=4, is_international=True, name=u'Restaurantes Internacionales', speciality='International', year_founded=0, locations_worldwide=1)
+rc=RestaurantChain.objects.create(id=4, is_international=True, 
+                                  name=u'Restaurantes Internacionales', 
+                                  speciality='International', 
+                                  year_founded=0, 
+                                  locations_worldwide=1)
 rc.save()
 
 Atribute_Group.objects.all().delete()
@@ -121,6 +138,7 @@ ag=Atribute_Group.objects.create(id=8, group=u'Other')
 ag.save()
 
 Atribute.objects.all().delete()
+
 #Price
 #a=Atribute.objects.create(id=1, group=Atribute_Group.objects.get(pk=1), atribute=u'Cheap $')
 #a.save()
@@ -1006,11 +1024,6 @@ r.save()
 r = Restaurant.objects.create(id=176,item_id=176,name='Amor ',address='Blvd.Aguacaliente 2798-1 Col.Davila ',description='',needs_reservation=False,price_range=Pricerange.objects.get(id=2),url='http://restaurantamor.weebly.com/',phone='6840951',hours='7:00 a 23:30 hrs',slug_name='',chain_id=1,pub_date=date,latitude=32.52121,longitude=-117.02314,city='Tijuana', state='Baja California', country='mx', fax=0, zipcode=22000,alcohol_id=2, smoking_area=0, dress_code_id=1, atmosphere_id=3, parking_id=2, payment_id=1, instalation_id=1, cuisine_id=19, urlimg='http://i.imgur.com/4pwmvlh.png')
 r.save()
 
-
-
-  
-
-
 #Rating_Dimension.objects.all().delete()
 #
 #rt=Rating_Dimension.objects.create(id=1, dimension_name=u'Atmosphere', priority=1)
@@ -1023,8 +1036,6 @@ r.save()
 #rt.save()
 #rt=Rating_Dimension.objects.create(id=5, dimension_name=u'Other', priority=1) #Checar si queda score-value-rating.---->
 #rt.save()
-
-
 
 #u=User.objects.create(id=2, username=u'Xochilt', first_name='Xochilt', last_name='Ramirez', email='xrg@hotmail.com', password='ramirez', is_active=True)
 #u.save()
