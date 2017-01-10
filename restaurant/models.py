@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django.contrib.auth.models import User #Modelo de usuario de Django
+from django.contrib.auth.models import User 
 import datetime
-
-#Para geo-position------------------------------
+#Para geo-position.
 from django.db import models
 from geoposition.fields import GeopositionField
 
@@ -11,7 +10,6 @@ from django.db import models
 from django.forms import ModelForm, TextInput, widgets
 from django import forms
 from django.core.validators import MaxLengthValidator
-
 from django_countries.fields import CountryField
 
 LANG = (
@@ -46,16 +44,19 @@ class Cuisine(models.Model):
     def __unicode__(self):
         return self.cuisine
 
+    
 class Atribute_Group(models.Model):
     group = models.CharField(max_length=32, null=True)
     def __unicode__(self):
         return self.group
 
+    
 class Atribute(models.Model):
     atribute = models.CharField(max_length=32)
     group = models.ForeignKey(Atribute_Group) 
     def __unicode__(self):
         return self.atribute
+    
     
 class RestaurantChain(models.Model):
     is_international = models.BooleanField()
@@ -67,10 +68,12 @@ class RestaurantChain(models.Model):
     def __unicode__(self):
         return self.name
     
+    
 class Recommender_rule(models.Model):
     rule = models.CharField(max_length=500, null=True)
     def __unicode__(self):
         return self.rule
+    
     
 class Item(models.Model):
     rule = models.ForeignKey(Recommender_rule, null=True)
@@ -85,36 +88,43 @@ class Alcohol(models.Model):
     def __unicode__(self):
         return self.type_alcohol
 
+    
 #No se considera en el modelo de contexto.
 class Area(models.Model):
     type_area = models.CharField(max_length=100, null=True) 
     def __unicode__(self):
         return self.type_area
 
+    
 class Atmosphere(models.Model):
     type_atmosphere = models.CharField(max_length=100, null=True) 
     def __unicode__(self):
         return self.type_atmosphere
 
+    
 class Dresscode(models.Model):
     type_dresscode = models.CharField(max_length=100, null=True) 
     def __unicode__(self):
         return self.type_dresscode
 
+    
 class Pricerange(models.Model):
     type_price = models.CharField(max_length=100, null=True) 
     def __unicode__(self):
         return self.type_price
 
+    
 class Parking(models.Model):
     type_parking = models.CharField(max_length=100, null=True) 
     def __unicode__(self):
         return self.type_parking
     
+    
 class Payment(models.Model):
     type_payment = models.CharField(max_length=100, null=True) 
     def __unicode__(self):
         return self.type_payment
+    
     
 class Instalation(models.Model):
     type_instalation = models.CharField(max_length=100, null=True) 
@@ -123,7 +133,7 @@ class Instalation(models.Model):
 
 
 class Restaurant(models.Model):
-    item = models.OneToOneField(Item, unique=True) #Llave primaria
+    item = models.OneToOneField(Item, unique=True)
     name = models.CharField(max_length=255, null=True)
     address = models.CharField(max_length=1000, null=True)
     description = models.CharField(max_length=6000, null=True)
@@ -153,10 +163,7 @@ class Restaurant(models.Model):
     instalation = models.ForeignKey(Instalation, null=True)
     cuisine =  models.ForeignKey(Cuisine, null=True)
     urlimg = models.CharField(max_length=3000, null=True)
-    
-    #Agregados
     atribute = models.ManyToManyField(Atribute)
-    #cuisine = models.ManyToManyField(Cuisine)
     def __unicode__(self):
         return self.name
 
@@ -202,7 +209,7 @@ class Rating(models.Model):
     rating = models.IntegerField(choices=RATING)
     interested = models.BooleanField(default=False)
     def __unicode__(self):
-        return self.user.user.username  #Cambie por username first_name
+        return self.user.user.username 
 
 #Remodelado de Rating por el error de userprofile_id.
 
@@ -225,8 +232,8 @@ class Review(models.Model):
     is_helpful = models.BooleanField(default=False)
     helpful = models.IntegerField(max_length=10, null=True, default=0)
     language = models.CharField(max_length=2, choices=LANG, null=True)
-    rating = models.IntegerField(max_length=10, null=True) #models.ForeignKey(Opinionreview)
-    country = models.CharField(max_length=20, null=True) #CountryField(blank_label='(select country)')
+    rating = models.IntegerField(max_length=10, null=True) 
+    country = models.CharField(max_length=20, null=True)
     
     def __unicode__(self):
         return self.title  
@@ -267,7 +274,7 @@ class Popularity(models.Model):
     datet = models.DateTimeField(default=datetime.datetime.now)
 
 
-#TABLA PARA GUARDAR LA POSICION ACTUAL DEL USUARIO.
+#To save user location.
 class CurrentLocation(models.Model):
     user =  models.ForeignKey(UserProfile)  
     latitude = models.DecimalField(max_digits=8, decimal_places=5, null=True)
@@ -277,12 +284,8 @@ class CurrentLocation(models.Model):
     def __unicode__(self):
         return self.user
 
-#TABLAS PARA PUNTOS DE INTERES DEL USUARIO. SE UTILIZAN PARA LAS
-#RECOMENDACIONES NEARBY.
-#copy activitytree_itmovies from 'itmovie.csv' delimiters ',' CSV;
 ##MODELO PARA OBTENER LA DISTANCIA DESDE LA UBICACION ACTUAL DEL USUARIO
 ##HASTA EL PUNTO DE INTERES DEL USUARIO ACTUAL CON RESTAURANTES NO GEOPLACES.
-#
 class Distance_poi(models.Model):
     user = models.ForeignKey(UserProfile)
     date = models.DateTimeField(default=datetime.datetime.now)
@@ -295,12 +298,9 @@ class Distance_poi(models.Model):
     
 class Distancia(models.Model):
     user = models.ForeignKey(UserProfile)
-    #user = request.user.get_profile()
     date = models.DateTimeField()
     location = models.CharField(max_length=200, null=True)
-    #latitude = models.DecimalField(max_digits=8, decimal_places=5, null=True)
-    #longitude = models.DecimalField(max_digits=8, decimal_places=5, null=True)
-    poi = models.ForeignKey(Restaurant) #restaurant de la base de datos
+    poi = models.ForeignKey(Restaurant)
     
 
 class PointOfInterest(models.Model):
@@ -309,11 +309,7 @@ class PointOfInterest(models.Model):
    
     class Meta:
         verbose_name_plural = 'points of interest'
-#
 
-   
-#copy restaurant_restaurant from 'restaurantes1.csv' delimiters ',' CSV;
-#Para USERPROFILE DEPRECATED---------------------------------------------------
 User.profile = property(lambda u: UserProfile.objects.get_or_create(user=u)[0])
 
 
