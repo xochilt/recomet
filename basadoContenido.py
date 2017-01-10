@@ -191,9 +191,7 @@ def profileItem(r):
         profile_item[1].extend(instalation)
         profile_item[1].extend(atmosphere)
         profile_item[1].extend(cuisine)
-    
         return profile_item
-    
     
 #---------------------------------------------------------------------
 #Calcula la similaridad entre todos los perfiles de la B.D.
