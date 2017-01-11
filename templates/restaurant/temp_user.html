@@ -1,16 +1,14 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
 {% extends 'restaurant/base.html'%}
 {% block content%}
-
 <div class="container">
     <div class="row">
         <div class="col-md-2">
             <img src="http://i.imgur.com/VTwHzHA.png" height="" width="" class="img-thumbnail">
         </div>
         <div class="col-md-10">
-            <nav class="navbar navbar-default inverse"> <!--class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
+            <nav class="navbar navbar-default inverse"> 
             <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                       <span class="icon-bar"></span>
@@ -38,18 +36,15 @@
         
     </div>
 </div>
-
+{% if u != 'Guest'%}
 <div>
-     {% if u != 'Guest'%}
-        <center> <p class="small">Login as <b>{{ u }}.</b></p></center>
-    {% endif %}
+     <center> <p class="small">Login as <b>{{ u }}.</b></p></center>
 </div>
-
+{% endif %}
 <div class="container">
     <div class="row">
                 <div class="col-md-3">
                     <h3 class="page-header"><b>My preferences </b></h3>
-                    
                     <div class="thumbnail">
                         <p><b>{{ user.first_name }}&nbsp;&nbsp;{{ user.last_name }}</b></p>
                         <p>Email : <b>{{ user.email }}</b></p>
@@ -65,7 +60,7 @@
                                <tr><td> &nbsp;&nbsp; &nbsp;&nbsp; <b>  {{ c.cuisine }}</b> </td></tr>
                             {% endfor %}
                         </table>
-                        {% endif %}</p>
+                        {% endif %}
 
                         {% if u.atribute.all %}
                         <p> Attributes :</p>
@@ -75,7 +70,7 @@
                              <tr><td> &nbsp;&nbsp; &nbsp;&nbsp;<b>   {{ a.atribute }} </b></td></tr>
                             {% endfor %}
                         </table>
-                        {% endif %} </p>
+                        {% endif %} 
                         
                         {% if msg %}
                         <p><img  width="20" height="20"   src="https://scontent-dfw.xx.fbcdn.net/hphotos-xat1/v/t1.0-9/11248080_973092776055756_7652585868344800201_n.jpg?oh=e05d733abc9af4734cdf6c03fa3c868d&oe=55D66D58" />
@@ -91,7 +86,7 @@
                                 <div class="thumbnail">
                                     <div class="caption">
                                             <p>
-                                            <img width="50" height="50" src="{{i.restaurant.urlimg}}" class="img-thumbnail" /></a>
+                                            <img width="50" height="50" src="{{i.restaurant.urlimg}}" class="img-thumbnail" />
                                             <a href="/recomet/view_profile/{{i.restaurant_id}}/"><b> {{i.restaurant.name}}</b></a>
                                             </p>
                                             <p>
@@ -115,11 +110,9 @@
                                             <p><span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> &nbsp; {{ i.good }}</p>
                                             <p><span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> &nbsp; {{ i.bad }}</p>
                                             <p><i>{{ i.review_time }}.</i></p>
-                                        
                                     </div> 
                                 </div>
                                 {% endfor %}
-                                
                             {% else %}
                                 <div>
                                   <img  width="20" height="20" src="http://i.imgur.com/QCOoOv4.png" />
@@ -127,7 +120,6 @@
                                 </div>
                             {% endif %} 
                 </div>
-                
                 <div class="col-md-4">
                  <h3 class="page-header"><b>My favorite restaurants</b></h3> 
                 {% if fv %}
@@ -135,16 +127,12 @@
                             <div class="thumbnail">
                                 <table>
                                     <tr>
-                                    <!--button type="button" class="btn btn-default pull-right " id="btndel" ><span class='glyphicon glyphicon-remove' aria-hidden='true'></span></button-->
-                                
                                     <td><p><a href="/recomet/view_profile/{{item.id}}/"><img src="{{item.urlimg}}" width=80 height=80  /> </a></p></td>
                                     <td><a href="/recomet/view_profile/{{item.id}}/"><b><center>{{item}}</center></b> </a><center>&nbsp;&nbsp;<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>&nbsp;&nbsp;<i class="small">{{item.address}}<br></center></i></td>
                                     </tr>
-                                    
                                 </table>
                             </div>
                     {% endfor %}
-
                 {% else %}
                     <div>
                         <img  width="20" height="20" src="http://i.imgur.com/QCOoOv4.png" />
@@ -154,12 +142,5 @@
                 </div>    
     </div>
 </div>  
-</div>
-  
 {% endblock %}
 
-<script>
-
-//FALTA QUE FUNCIONE BOTON DE X.
-
-</script>
