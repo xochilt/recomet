@@ -1,7 +1,4 @@
-
-
 {% extends 'restaurant/base.html'%}
-
 {% block content%}
     <meta charset="utf-8">
     <style>
@@ -10,8 +7,6 @@
         width: 500px;
     }
     </style>
-    
-    
 <div class="container">
     <div class="row">
         <div class="col-md-2">
@@ -30,7 +25,6 @@
                       <span class="icon-bar"></span>
                     </button>
                 </div>
-               
                 <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="/recomet/">Home</a></li>
@@ -49,14 +43,11 @@
         </div>
     </div>
 </div>
-    
-
-<div>
-     {% if u != 'Guest'%}
-        <center> <p class="small">Login as <b>{{ u }}.</b></p></center>
-    {% endif %}
-</div> 
-
+{% if u != 'Guest'%}
+    <div>
+         <center> <p class="small">Login as <b>{{ u }}.</b></p></center>
+    </div> 
+{% endif %}
 <div class="container">
     <div class="row">
             <div class="col-md-4" >
@@ -73,13 +64,9 @@
                         <button type="submit" id="send" class="btn btn-primary pull-right">Save</button>
                         <!--input type="submit" class="btn btn-primary pull-right " id="send" value="Submit" /--><br><br>
                         </form>
-                        
                     </div>
                 </div>
             </div>
-
-    
-
             <div class="col-md-6">
                 <h3 class="page-header"><b>Current location </b></h3>
                 <div class="thumbnail">
@@ -93,7 +80,6 @@
                                    <label for="lon">Longitude:</label>
                                    <input type="text" class="form-control" id="lon">
                                 </div>
-                                
                             </form>
                         </div> 
                         <div class="caption"> 
@@ -105,22 +91,16 @@
                         </div>
                         <div id="thanks" class="pull-right"></div><br>
                         <button class="btn btn-success pull-right" id="location">Save My Location</button><br><br>
-                        
-                    
                 </div>
             </div>
     </div>
-</div>
+</div><br><br>
 
-<br><br>
+{% endblock %}
 
 <script>
-
 //OBTENER LAS COORDENADAS DE LA UBICACION ACTUAL DEL USUARIO.
 $( document ).ready(function() {
-    
-
-        
    $("#location").click(function (){
         var latitude= $('#lat').val();
         var longitude= $('#lon').val();
@@ -164,16 +144,11 @@ $( document ).ready(function() {
                 }
        });
    });
-   
-   
-   
+ 
    $('.btn-primary').click(function (){
-        
         //$("#context").hide(); //formulario de contexto  
         //$('#send').hide();
         document.getElementById('msg').innerHTML = "<font color='red'><b>Enviando los datos...</b></font>";
-        
-        //document.getElementById('message').innerHTML = msg;
                                 $.ajaxSetup({
                                     beforeSend: function(xhr, settings) {
                                     function getCookie(name) {
@@ -210,66 +185,39 @@ $( document ).ready(function() {
                 }
        });
    });
-   
-   
-   
+
 });
 </script>
 
 <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true"></script>
-
 <script>
 // Note: This example requires that you consent to location sharing when
 // prompted by your browser. If you see a blank space instead of the map, this
 // is probably because you have denied permission for location sharing.
-
 var map;
-
 function initialize() {
   var mapOptions = {
     zoom: 6
   };
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
-
   // Try HTML5 geolocation
   if(navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = new google.maps.LatLng(position.coords.latitude,
+    var pos = new google.maps.LatLng(position.coords.latitude,
                                        position.coords.longitude);
-
-      var infowindow = new google.maps.InfoWindow({
+    var infowindow = new google.maps.InfoWindow({
         map: map,
         position: pos,
         content: 'My location.',
         title: 'My location'
       });
-
     var x = document.getElementById("lat");
     var y = document.getElementById("lon");
     var me = this;
-    //x.innerHTML = position.coords.latitude;
-    //y.innerHTML = position.coords.longitude;
-        x.value=position.coords.latitude;
-        y.value=position.coords.longitude;
-    
-    //alert(me.location);
-
-      map.setCenter(pos);
-      
-      //var marker = new.google.maps.Marker({
-      //  position:location,
-      //  map: map,
-      //});
-      //
-      //var infowindow = new.google.maps.InfoWindow({
-      //  content: 'Latitude:'+ location.lat()+ '<br> Longitude:' + location.lng();
-      //});
-      //
-      //infowindow.open(map,marker);
-      
-      
-      
+    x.value=position.coords.latitude;
+    y.value=position.coords.longitude;
+    map.setCenter(pos);      
     }, function() {
       handleNoGeolocation(true);
     });
@@ -291,54 +239,10 @@ function handleNoGeolocation(errorFlag) {
     position: new google.maps.LatLng(60, 105),
     content: content
   };
-
   var infowindow = new google.maps.InfoWindow(options);
   map.setCenter(options.position);
-  
 }
-
 google.maps.event.addDomListener(window, 'load', initialize);
-
-
- </script>
-
-
-
-
-
-
-
-
- 
-{% endblock%}
-
-
-
-
-
-
-
-
-
-
-
-
-
-                        
-<div class="panel panel-default">
-<div class="panel-heading"><h3><b>{{ u }}'s Context</b></h3></div>
-  {% if msg %}
-    <div class="panel-body">
-        "{{ msg }}"
-     </div>
-  {% else %}
-    <div class="panel-body">
-      <form method="POST" action=".">{% csrf_token %}
-      {{ form.as_p }} <br>
-      <input type="submit" id="enviar" value="Submit" />
-      </form>
-    </div>
-  {% endif %}
-</div>
+</script>
 
 
