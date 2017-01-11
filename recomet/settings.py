@@ -92,7 +92,7 @@ SECRET_KEY = ''
 #    #'django.template.loaders.eggs.load_template_source',
 #)
 TEMPLATE_DIRS = (
-    '/root/recomet/templates',
+    'templates/',
     )
 
 LOGIN_URL = '/recomet'
@@ -105,5 +105,6 @@ EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'x@gmail.com'
 
+GEOPOSITION_GOOGLE_MAPS_API_KEY = '' #google
  
  
