@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 from django.forms import ModelForm
-from restaurant.models import UserProfile, Restaurant, 
-                            Rating, Review, Pricerange
+from restaurant.models import UserProfile, Restaurant, Rating, Review, Pricerange
 from django import forms
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
@@ -34,6 +33,7 @@ class RestForm(ModelForm):
 
     class Meta:
         model=Restaurant
+        fields = '__all__'
         
     def __unicode__(self):
         return self.name
