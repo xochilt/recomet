@@ -1,29 +1,20 @@
-{% extends 'restaurant/base.html'%}
-
+{% extends 'restaurant/base.html' %}
 {% block content %}
-
-
-<!-- Navigation -->
 <div class="container">
     <div class="row">
         <div class="col-md-2">
             <img src="http://i.imgur.com/VTwHzHA.png" height="" width="" class="img-thumbnail">
         </div>
         <div class="col-md-10">
-            
-        <nav class="navbar navbar-default inverse"> <!--class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
-    
+        <nav class="navbar navbar-default inverse"> 
             <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
-               
                 </button>
                 </div>
-               
                 <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li ><a href="/recomet/"> Home</a></li>
@@ -34,7 +25,8 @@
                     <li><a href="/recomet/topten/">Community</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                  <li><a href="/accounts/logout/"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+                  <li><a href="/accounts/logout/"><span class="glyphicon glyphicon-log-out"></span> 
+                      Logout</a></li>
                 </ul>
                 </div>
             </div>
@@ -42,57 +34,36 @@
         </div>   
     </div>
 </div>
-    
-<div>
-     {% if u != 'Guest'%}
-        <center> <p class="small">Login as <b>{{ u }}.</b></p></center>
-    {% endif %}
-</div> 
-
+{% if u != 'Guest'%}
+    <div>
+          <center> <p class="small">Login as <b>{{ u }}.</b></p></center>
+    </div> 
+{% endif %}
 {% if msg %}
-<div><b class="small pull-right"><img  width="20" height="20" src="http://i.imgur.com/QCOoOv4.png" />
-<font color="red">{{ msg }}</font></b></div>
+    <div>
+        <b class="small pull-right"><img  width="20" height="20" src="http://i.imgur.com/QCOoOv4.png" />
+        <font color="red">{{ msg }}</font></b>
+    </div>
 {% endif %}
 
-
 <h3><b> My recommendations</b></h3>       
-        <!--form role="form" action="" method="POST">{% csrf_token %}
-                    <div class="btn-group">
-                        <button class="btn btn-default dropdown-toggle" type="button" id="btnmenu1" data-toggle="dropdown" >
-                         Recommendations
-                        <span class="caret"></span></button>
-                        <ul class="dropdown-menu" role="menu" aria-labelledby="menu1" id="menu1" data-toggle="dropdown">
-                            <li role="presentation"><a role="item" value="1" href="#">Expert</a></li>
-                            <li role="presentation"><a role="item" value="2" href="#">Content Based</a></li>
-                            <li role="presentation"><a role="item" value="3" href="#">Collaborative Filtering</a></li>
-                            <li role="presentation"><a role="item" value="4" href="#">Closer</a></li>
-                        </ul>
-                    </div>
-        </form-->
-   
-
-</div> <!--FIN DEL CONTENEDOR-->
-
 <p id="message" class="small"><b></b></p>
-
 <hr>  
-
 <div class="container menu">
     <div class="row">
         <div class="col-sm-2 col-md-3">
             <div class="panel-group" id="accordion">
-                
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h4 class="panel-title">
                             <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" >
-                            </span>Recommendations</a>
+                            Recommendations</a>
                         </h4>
                     </div>
                     <div id="collapseOne" class="panel-collapse collapse in">
                         <div class="panel-body">
                             <table class="table">
-                                <tr><td><a value="1" href="#">Expert</span></a></td></tr>
+                                <tr><td><a value="1" href="#">Expert</a></td></tr>
                                 <tr><td><a value="2" href="#">Content Based</a></td></tr>
                                 <tr><td><a value="3" href="#">Collaborative Filtering</a></td></tr>
                                 <tr><td><a value="4" href="#">Nearby</a></td></tr>
@@ -102,40 +73,19 @@
                 </div>
             </div>
         </div>
-        
         <div id="myalert" > </div>
-        
         <div class="col-sm-9 col-md-9">
         <div id=container class="visible-xs-*">
-
         </div>
-  
     </div>
 </div>
-
-
-    <!--div id="container1" class="visible-xs-*">
-         <!--div class="container" id="load" >
-            <button class="btn btn-lg btn-warning" type="hidden"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
-        </div>
-           
-    </div-->
-    
-
-    <!--div>
-        <img  width="20" height="20" src="https://scontent-dfw.xx.fbcdn.net/hphotos-xat1/v/t1.0-9/11248080_973092776055756_7652585868344800201_n.jpg?oh=e05d733abc9af4734cdf6c03fa3c868d&oe=55D66D58" />
-        <b><font color="red"> PLEASE, ADD RATINGS INTO YOUR PROFILE  </font></b>
-    </div-->
-
-
 <div id="demo">
-
 </div>
-
+{% endblock %}
+    
 <script>
     //Boton Whislist.
     $(".btn-primary").click(function (){
-        
         var iditem= $(this).val();
         alert('Restaurant was added!');
         //document.getElementById('message').innerHTML = msg;
@@ -179,12 +129,8 @@
        });
    });
 </script>
-
-
-
-
+    
 <script>
-
 $(document).ready(function(){
     
     //Para manejar el menu con acordion.
@@ -287,8 +233,6 @@ $(document).ready(function(){
        });
    });
 
-    
-    
     //para manejar el menu con dropdown.
     $(".dropdown-menu li a").click(function () {
            var dropdownval= $(this).val(this.getAttribute("value"));
@@ -338,9 +282,7 @@ $(document).ready(function(){
                     if (jsonStr.length==100){
                         document.getElementById('container').innerHTML = "<b class='text-info'><span class='glyphicon glyphicon-remove' aria-hidden='true'></span>&nbsp;&nbsp;You do not have any location.</b>";
                     }
-                    
-                    
-                            
+        
                     var v = data.restaurant[0].value;
                     //alert(v);
                     var txt="";
@@ -432,11 +374,8 @@ $(document).ready(function(){
                 }
        });
    });
-    
-    
+
     //PARA EL BOTON LIKE DE REOMENDACIONES AL USUARIO.     
-        
-    //$(".btn-success").click(function (){
     $(document).on('click','#buttonlike2', function(){
         var iditem= $(this).val();
         //alert(iditem);
@@ -479,16 +418,10 @@ $(document).ready(function(){
        });
    });
     
-    
-    
-    
-    
-    
-//final de document ready agregado
+
+//final de document ready
 });
- </script>
-
-
+</script>
 
 <script>
 var x = document.getElementById("demo");
@@ -505,181 +438,7 @@ function showPosition(position) {
   x.innerHTML = "Name: " + position.coords.addresses;
 }
 </script>
-
-
-
-
-
-{% endblock %}
-
-
-
-
-
-
-
-<form action="." method="GET"> {% csrf_token %}
-<div class="visible-xs-*">
     
-    <h3 class="page-header" ><b>Expert Recommendations</b></h3>
-    {% if rests %}
-        <div class="row">
-            {% for item in rests %}
-                <div class="col-xs-6 col-md-3">
-                    <div class="thumbnail">    
-                        <div class="caption">
-                            <p><a href="/recomet/view_profile/{{item.item_id}}/"><img src="{{item.urlimg}}" width=100 height=75 class="img-thumbnail"></a></p>
-                        
-                        <div class="thumbnail">   
-                            <p><span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>&nbsp;<a href="/recomet/view_profile/{{item.item_id}}/"><b> {{ item.name }}</b></a></p>
-                            <p><span class="glyphicon glyphicon-link" aria-hidden="true"></span>&nbsp;
-                            {% if item.url %}<a href="{{item.url}}">{{ item.url }} </a>{% else %} {{ item.url}} </p> {% endif %}
-                            <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp; {{ item.phone }}</p>
-                            <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> &nbsp;{{ item.address }}</p>
-                            <p>Coordenadas:<br>
-                            <label for="latitude" id="lat">{{item.latitude}}</label>,
-                            <label for="latitude" id="lon">{{item.longitude}}</label>
-                            </p>                           
-                            
-                        </div>
-                        <div class="panel-footer">   
-                             <button type="button" class="btn btn-primary" id="button1" value="{{item.id}}">Add my Wishlist</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-       <div class="row">
-            <div class="alert alert-danger" role="alert" style="width: 100%;"><b><center>No recommendations found, you need add ratings.</center></b></div>
-        </div>
-    {% endif %}
-    
-
-  
-
-    <h3 class="page-header"><b>Based Content Recommendations</b></h3>
-    {% if bc_item  %}
-        <div class="row">
-            {% for item in bc_item %}
-                
-                <div class="col-xs-6 col-md-3">
-                    <div class="thumbnail">    
-                        <div class="caption">
-                            
-                            <p><a href="/recomet/view_profile/{{item.item_id}}/"><img src="{{item.urlimg}}" width=100 height=75 class="img-thumbnail"></a></p>
-                            <div class="thumbnail">
-                                <p><span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>&nbsp;<a href="/recomet/view_profile/{{item.item_id}}/"><b> {{ item.name }}</b></a></p>
-                                <p><span class="glyphicon glyphicon-link" aria-hidden="true"></span>&nbsp;
-                                {% if item.url %} <a href="{{item.url}}">{{ item.url }} </a>{% else %} {{ item.url}} </p> {% endif %}
-                                
-                                <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp; {{ item.phone }}</p>
-                                <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> &nbsp;{{ item.address }}</p>
-                                <p>Coordenadas:<br>
-                                <label for="latitude" id="lat">{{item.latitude}}</label>,
-                                <label for="latitude" id="lon">{{item.longitude}}</label>
-                                </p>
-                            </div> 
-                        </div>
-                        
-                        <div class="panel-footer">
-                             <button type="button" class="btn btn-primary" id="button2" value="{{item.id}}">Add my Wishlist</button>
-                        </div>
-                        
-                       
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <div class="row">
-            <div class="alert alert-danger" role="alert" style="width: 100%;"><b><center>No recommendations found, you need add ratings.</center></b></div>
-        </div>
-    {% endif %}
-
-
-
-    <h3 class="page-header"><b>Collaborative Filtering Recommendations</b></h3>
-    {% if cf_rec %}
-        <div class="row">
-            {% for item in cf_rec %}
-                <div class="col-xs-6 col-md-3">
-                    <div class="thumbnail">    
-                        <div class="caption">
-                            <p><a href="/recomet/view_profile/{{item.item_id}}/">
-                            <img src="{{item.urlimg}}" width=100 height=75 class="img-thumbnail"></a></p>
-                            <div class="thumbnail">  
-                                <p><span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>&nbsp;<a href="/recomet/view_profile/{{item.item_id}}/"><b> {{ item.name }}</b></a></p>
-                                <p><span class="glyphicon glyphicon-link" aria-hidden="true"></span>&nbsp; {% if item.url %}
-                                <a href="{{item.url}}">{{ item.url }} </a>{% else %} {{ item.url}} </p> {% endif %}
-                                
-                                <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp; {{ item.phone }}</p>
-                                <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> &nbsp;{{ item.address }}</p>
-                                <p>Coordenadas:<br>
-                                <label for="latitude" id="lat">{{item.latitude}}</label>,
-                                <label for="latitude" id="lon">{{item.longitude}}</label>
-                                </p>
-                            
-                            </div>
-                        </div>
-                        <div class="panel-footer">  
-                             <button type="button" class="btn btn-primary" id="button3" value="{{item.id}}">Add my Wishlist</button>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <div class="row">
-            <div class="alert alert-danger" role="alert" style="width: 100%;"><b><center>No recommendations found, you need add ratings.</center></b></div>
-        </div>
-    {% endif %}
-
-
-
-
-
-    <h3 class="page-header" ><b>Los restaurantes mas cercanos (2 kms.)</b></h3>
-    {% if q %}
-        <div class="row">
-            {% for item in q %}
-                <div class="col-xs-6 col-md-3">
-                    <div class="thumbnail">
-                        <div class="caption">
-                            <p><a href="/recomet/view_profile/{{item.poi.item_id}}/"><img src="{{item.poi.urlimg}}" width=100 height=75 class="img-thumbnail"></a></p>
-                        <div class="thumbnail">   
-                            <p><span class="glyphicon glyphicon-cutlery" aria-hidden="true"></span>&nbsp;<a href="/recomet/view_profile/{{item.item_id}}/"><b> {{ item.poi.name }}</b></a></p>
-                            <p><span class="glyphicon glyphicon-link" aria-hidden="true"></span>&nbsp;
-                            {% if item.poi.url %}<a href="{{item.poi.url}}">{{ item.poi.url }} </a>{% else %} {{ item.poi.url}} </p> {% endif %}
-                            <p><span class="glyphicon glyphicon-earphone" aria-hidden="true"></span>&nbsp; {{ item.poi.phone }}</p>
-                            <p><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span> &nbsp;{{ item.poi.address }}</p>
-                            <p>Distancia Aproximada:<label for="latitude" id="lat">&nbsp;{{item.dis}}</label>&nbsp;&nbsp;Kms.
-                            </p>                           
-                        </div>
-                        <div class="panel-footer">   
-                             <button type="button" class="btn btn-primary" id="button1" value="{{item.poi.id}}">Add my Wishlist</button>
-                        </div>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    {% else %}
-       <div class="row">
-            <div class="alert alert-danger" role="alert" style="width: 100%;"><b><center>No recommendations founded...</center></b></div>
-        </div>
-    {% endif %}
-    
-</div>
-
-
-
- 
- <div>
-    <button class="btn btn-default" onclick="getLocation()">Share my location</button>
-    <p id="demo"></p>
-</div>
  
 <script>
 var x = document.getElementById("demo");
