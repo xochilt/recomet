@@ -1,27 +1,20 @@
 {%extends 'restaurant/base.html'%}
-
 {% block content %}
-<!-- Navigation -->
 <div class="container">
     <div class="row">
         <div class="col-md-2">
             <img src="http://i.imgur.com/VTwHzHA.png" height="" width="" class="img-thumbnail">
         </div>
         <div class="col-md-10">
-            
-        <nav class="navbar navbar-default inverse"> <!--class="navbar navbar-inverse navbar-fixed-top" role="navigation">-->
-    
+        <nav class="navbar navbar-default inverse">
             <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
                       <span class="icon-bar"></span>
-               
                 </button>
                 </div>
-               
                 <div class="collapse navbar-collapse" id="myNavbar">
                 <ul class="nav navbar-nav">
                     <li><a href="/recomet/">Home</a></li>
@@ -40,68 +33,61 @@
         </div>   
     </div>
 </div>
-
-<div>
-     {% if u != 'Guest'%}
+{% if u != 'Guest'%}
+    <div>
         <center> <p class="small">Login as <b>{{ u }}.</b></p></center>
-    {% endif %}
-</div>
-
-<!--h2 class="page-header"><b>Reviews</b></h2-->
-
-<!--div id=container class="visible-xs-*"-->
+    </div>
+{% endif %}
 <div class="container">
         <div class="col-md-2">
-                <!--h3 class="page-header"><b></b></h3>
-                <!--div class="list-group">
-                {% for i in allusers %}
-                    <a id="user"  value={{i.id}}  href="#" class="list-group-item"><span class="glyphicon glyphicon-user" aria-hidden="true"></span>&nbsp;{{i.id}},{{i.username }}</a>
-                {% endfor %}
-                </div-->
         </div>
-    
-    
         {% if rev %}
                 <div class="col-md-8">
                     <h3 class="page-header"><b>Community reviews</b></h3>
-                    {% for i in rev %}
-                    <div class="thumbnail">
-                                    
+                        {% for i in rev %}
+                        <div class="thumbnail">
                                     <a href="/recomet/view_profile/{{i.restaurant.item_id}}/"><img  src="{{i.restaurant.urlimg}}" class="pull-left"  width="50" height="50"> </a>
                                     <a href="/recomet/view_profile/{{i.restaurant.item_id}}/"><b>&nbsp;&nbsp;{{i.restaurant.name}}</b> </a>
                                     <br>
                                     <div class="caption">
-                                        <span class="glyphicon glyphicon-user" aria-hidden="true""></span> <b>&nbsp; {{ i.user }} </font></b>&nbsp; <span class="bfh-countries" data-country="{{i.country}}" data-flags="true"></span><br>
-                                        <!--span class="glyphicon glyphicon-user" aria-hidden="true"></span> <b>&nbsp; {{ i.user }}:</font></b>&nbsp; 
-                                        <img class="country-select-flag" id="{{i.country.numeric}}" style="margin: 6px 4px 0" src="{{i.country.flag}}"><i>{{i.country.name}}</i-->
-                                        <!--p><img width="50" height="50" src="{{i.urlimg}}" class="img-thumbnail"/> <a href="/recomet/view_profile/{{i.restaurant_id}}/"> {{i.restaurant.name}}</a></p-->
-                                        <br>
+                                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> <b>&nbsp; {{ i.user }}</b>&nbsp; 
+                                        <span class="bfh-countries" data-country="{{i.country}}" data-flags="true"></span><br><br>
                                         {% if i.rating == 1 %}
                                             <span class="glyphicon glyphicon-star" aria-hidden="true"></span>    
                                         {% endif %}
                                         {% if i.rating == 2 %}
-                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span>    
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>    
                                         {% endif %}
                                         {% if i.rating == 3 %}
-                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span>    
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>    
                                         {% endif %}
                                         {% if i.rating == 4 %}
-                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span>    
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>    
                                         {% endif %}
                                         {% if i.rating == 5 %}
-                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span><span class="glyphicon glyphicon-star" aria-hidden="true"></span>    
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
+                                            <span class="glyphicon glyphicon-star" aria-hidden="true"></span>    
                                         {% endif %}
                                         <br>
-                                        <i>Said:<b> {{i.title}}</b></i></p>
+                                        <i>Said:<b> {{i.title}}</b></i>
                                         <span class="glyphicon glyphicon-ok-circle" aria-hidden="true"></span> &nbsp; {{ i.good }}<br>
                                         <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span> &nbsp; {{ i.bad }}<br>
                                         <i class="small pull-right">{{ i.review_time }}.</i><br>
-                                        
-                                        <button type="button" class="btn btn-success " id="button" value="{{i.id}}" >Helpful?</button> <span class="badge">{{i.helpful}}</span>
-                                        <div id="{{i.restaurant_id}}" class="text-success">   </div> 
+                                        <button type="button" class="btn btn-success " id="button" value="{{i.id}}" >Helpful?</button> 
+                                        <span class="badge">{{i.helpful}}</span>
+                                        <div id="{{i.restaurant_id}}" class="text-success">   
+                                        </div> 
                     </div> 
                 </div>
-        
         {% endfor %}
         </div>
         {% else %}
@@ -110,28 +96,18 @@
                 <b class="small"><img  width="20" height="20" src="http://i.imgur.com/QCOoOv4.png" />
                 <font color="red"> No reviews found. </font></b></center>
             </div>
-            
         {% endif %}
-
 </div>
+{% endblock %}
 
 <script>
 $(document).ready(function(){
-        
-        
         //Link para obtener el perfil del usuario.
-        //Verificar el evento correcto.........................................
         //PARA P Y PARA LABEL, NO FUNCIONA CON NINGUNO.
         $('.list-group a').click(function() {
         //$(".label-success").click(function (){
-            
             var iduser= $(this).val(this.getAttribute("value"));
             alert(iduser);
-            //$(this).prop('disabled', true);
-            //$(this).prop('hide', true);
-            //alert('boton funciona');
-            //$("#msg").children().css({"color": "red", "border": "2px solid red"});
-        
                                 $.ajaxSetup({
                                     beforeSend: function(xhr, settings) {
                                     function getCookie(name) {
@@ -164,10 +140,6 @@ $(document).ready(function(){
                success: function(data) {
                     var jsonStr = JSON.stringify(data, null, 4);
                     alert (jsonStr);
-                    //alert (data.restaurant.item);
-                    //var wl ="<b>Thank you!</b>"; 
-                    //document.getElementById('userinfo').innerHTML = 'user info...';
-                    //$("#"+data.restaurant.rest).fadeOut(2000);
                 }
             });
         });
@@ -179,10 +151,7 @@ $(document).ready(function(){
             var iditem= $(this).val();
             //alert(iditem);
             $(this).prop('disabled', true);
-            $(this).prop('hide', true);
-            //alert('boton funciona');
-            //$("#msg").children().css({"color": "red", "border": "2px solid red"});
-        
+            $(this).prop('hide', true);        
                                 $.ajaxSetup({
                                     beforeSend: function(xhr, settings) {
                                     function getCookie(name) {
@@ -227,7 +196,6 @@ $(document).ready(function(){
 
 </script>
 
-{% endblock %}  
     
 
 
