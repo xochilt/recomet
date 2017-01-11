@@ -47,12 +47,17 @@ import json
 
 #VISTA INICIAL DE LA APLICACION.
 def index(request):
-    u = request.user.profile
-    #user=u.user.username
-    user = User.objects.get(id=u.user.id)
-    print user
+    try:
+        u = request.user.profile
+        user = User.objects.get(id=u.user.id)
+        print user
+    except:
+        u = None 
+
     t=[]
-    if request.method=='POST':   
+    
+    if request.method == 'POST': 
+      if request.user.is_authenticated():   
         u = request.user.profile
         user=u.user.username
         #datajson= json.dumps(json.loads(request.body))
@@ -188,7 +193,7 @@ def index(request):
                 r=Restaurant.objects.get(id=i.id_item_id)
                 if r in rests:continue
                 rests.append(r)    
-       if not rat: 
+        if not rat: 
             msg = "You didn't add any rating. Please vote to get recommendations."
         ratings = Rating.objects.values_list('user','id_item','rating')
         #Depurar la lista para eliminar usuarios repetidos.
@@ -226,10 +231,8 @@ def index(request):
             u = request.user.profile
         else:
             u='Guest'
-        return render_to_response('restaurant/index.html', 
-                                  locals(), 
-                                  context_instance=RequestContext(request)
-                                 ) 
+        return render_to_response('restaurant/index.html', locals(), 
+                                  context_instance=RequestContext(request)) 
 
 
 def valida_query(dropdowntxt, tablevalue):
@@ -386,7 +389,7 @@ def recommendations_view(request,iduser):
                                   dis=dis, 
                                   recom=2)
                 dp.save()
-   if cf_rec:
+    if cf_rec:
         for i in cf_rec:
             dis = dist_haversine(32.529084, -116.9885298, i.latitude, i.longitude)
             if dis<=2.0 and i not in restnear:
@@ -563,8 +566,7 @@ def fisIntegrador(request, iduser):
     w_avg = ((exp * predicted) + (res * resultRecom) + (cor * promRec)) / (exp + res + cor)
     #Average.
     g_avg = (predicted + resultRecom + promRec) / 3.0
-    return w_avg, g_avg, rExp, pc, pr, sim,  p_it, 
-            itemsUser, recomend, bc_item, rests, cf_rec 
+    return w_avg, g_avg, rExp, pc, pr, sim,  p_it, itemsUser, recomend, bc_item, rests, cf_rec 
 
     
 #------------------------------------------------------
@@ -1191,8 +1193,7 @@ def recomtest(request):
     rat = Rating.objects.filter(user=u) 
     print 'rat', rat
     if rat:   
-        w_avg, g_avg, rExp, pc, pr, sim,  profileVectors, itemsUser, recomend, bc_item, rests, cf_rec = 
-        fisIntegrador(request, u.id)
+        w_avg, g_avg, rExp, pc, pr, sim,  profileVectors, itemsUser, recomend, bc_item, rests, cf_rec = fisIntegrador(request, u.id)
         #Insert with post method.
         if request.method=='POST':
             print 'entro a post'
