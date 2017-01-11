@@ -20,7 +20,6 @@
                 <ul class="nav navbar-nav">
                     <li><a href="/recomet/"> Home</a></li>
                     <li><a href="/recomet/recomtest/">Recommendations</a></li>
-                    
                     <li class="active" ><a href="/recomet/user/profile/{{ u.user.id }}/">My Profile</a></li>
                     <li><a href="/recomet/usercontext/{{u.user.id}}/">My Context</a></li>
                     <li><a href="/recomet/wishlist/{{u.user.id}}/">My Wishlist</a></li>
@@ -37,9 +36,9 @@
     </div>
 </div>
 {% if u != 'Guest'%}
-<div>
-     <center> <p class="small">Login as <b>{{ u }}.</b></p></center>
-</div>
+    <div>
+         <center> <p class="small">Login as <b>{{ u }}.</b></p></center>
+    </div>
 {% endif %}
 <div class="container">
     <div class="row">
@@ -78,7 +77,6 @@
                         {% endif %}
                     </div>
                 </div>
-                 
                 <div class="col-md-5">
                     <h3 class="page-header"><b>My reviews</b></h3>
                             {% if reviews %}
