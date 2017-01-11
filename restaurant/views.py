@@ -59,11 +59,8 @@ def index(request):
         json_data = json.loads(request.body)
         dropdowntxt=json_data['menutxt']
         tablevalue=json_data['menuval']['0']['value']
-        print 'dropdowntxt',dropdowntxt
-        print 'tablevalue', tablevalue
         t.append(tablevalue)
         t.append(dropdowntxt)
-        
         #Price range
         if tablevalue=='1':
             print 'entro a 1'
@@ -76,7 +73,8 @@ def index(request):
                                   'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 
                                   'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 
                                   'cuisine': q.cuisine_id, 'parking': q.parking_id, 
-                                  'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}        
+                                  'payment': q.payment_id, 'instalation': q.instalation_id }  
+                                  for q in query ]}        
         #Instalation
         elif tablevalue=='2':
             print 'entro a 2'
@@ -89,7 +87,8 @@ def index(request):
                                   'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 
                                   'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 
                                   'cuisine': q.cuisine_id, 'parking': q.parking_id, 
-                                  'payment': q.payment_id, 'instalation': table.type_instalation }  for q in query ]}        
+                                  'payment': q.payment_id, 'instalation': table.type_instalation }  
+                                  for q in query ]}        
         #Parking
         elif tablevalue=='3':
             print 'entro a 3'
@@ -97,12 +96,13 @@ def index(request):
             query = Restaurant.objects.filter(parking_id=table.id)
             res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 
                                   'description':q.description, 'price': q.price_range_id, 
-                                  'url': q.url, 'phone': q.phone, 'hours':q.hours,
-                                  'city':q.city, 'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 
+                                  'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 
+                                  'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 
                                   'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 
                                   'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 
                                   'cuisine': q.cuisine_id, 'parking': table.type_parking, 
-                                  'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}         
+                                  'payment': q.payment_id, 'instalation': q.instalation_id }  
+                                  for q in query ]}         
         #Atmosphere
         elif tablevalue=='4':
             print 'entro a 4'
@@ -115,7 +115,8 @@ def index(request):
                                   'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 
                                   'atmosphere':table.type_atmosphere, 'urlimg':q.urlimg, 
                                   'cuisine': q.cuisine_id, 'parking': q.parking_id, 
-                                  'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}         
+                                  'payment': q.payment_id, 'instalation': q.instalation_id }  
+                                  for q in query ]}         
         #Payment
         elif tablevalue=='5':
             print 'entro a 5'
@@ -128,19 +129,22 @@ def index(request):
                                   'alcohol': q.alcohol_id, 'dresscode':q.dress_code_id, 
                                   'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 
                                   'cuisine': q.cuisine_id, 'parking': q.parking_id, 
-                                  'payment': table.type_payment, 'instalation': q.instalation_id }  for q in query ]}        
+                                  'payment': table.type_payment, 'instalation': q.instalation_id }  
+                                  for q in query ]}        
         #Dresscode
         elif tablevalue=='6':
             print 'entro a 6'
             table = Dresscode.objects.get(type_dresscode=dropdowntxt)
             query = Restaurant.objects.filter(dress_code_id=table.id)
-            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 'description':q.description, 
-                                  'price': q.price_range_id, 'url': q.url, 'phone': q.phone, 
-                                  'hours':q.hours,'city':q.city, 'state':q.state, 'country':q.country, 
-                                  'zipcode':q.zipcode, 'alcohol': q.alcohol_id, 'dresscode':table.type_dresscode, 
-                                  'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 'cuisine': q.cuisine_id, 
-                                  'parking': q.parking_id, 'payment': q.payment_id, 
-                                  'instalation': q.instalation_id }  for q in query ]}        
+            res = {'restaurant':[{'id': q.id, 'name':q.name, 'address':q.address, 
+                                  'description':q.description, 'price': q.price_range_id, 
+                                  'url': q.url, 'phone': q.phone, 'hours':q.hours,'city':q.city, 
+                                  'state':q.state, 'country':q.country, 'zipcode':q.zipcode, 
+                                  'alcohol': q.alcohol_id, 'dresscode':table.type_dresscode, 
+                                  'atmosphere':q.atmosphere_id, 'urlimg':q.urlimg, 
+                                  'cuisine': q.cuisine_id, 'parking': q.parking_id, 
+                                  'payment': q.payment_id, 'instalation': q.instalation_id }  
+                                  for q in query ]}        
             #Alcohol
         elif tablevalue=='7':
             print 'entro a 7'
@@ -153,7 +157,8 @@ def index(request):
                                   'zipcode':q.zipcode, 'alcohol': table.type_alcohol, 
                                   'dresscode':q.dress_code_id, 'atmosphere':q.atmosphere_id, 
                                   'urlimg':q.urlimg, 'cuisine': q.cuisine_id, 'parking': q.parking_id, 
-                                  'payment': q.payment_id, 'instalation': q.instalation_id }  for q in query ]}        
+                                  'payment': q.payment_id, 'instalation': q.instalation_id }  
+                                  for q in query ]}        
           #Cuisine
         elif tablevalue=='8':
             print 'entro a 8'
@@ -166,7 +171,8 @@ def index(request):
                                   'zipcode':q.zipcode, 'alcohol': q.alcohol_id, 
                                   'dresscode':q.dress_code_id, 'atmosphere':q.atmosphere_id, 
                                   'urlimg':q.urlimg, 'cuisine': table.cuisine, 'parking': q.parking_id, 
-                                  'payment': q.payment_id, 'instalation': q.instalation_id } for q in query ]}        
+                                  'payment': q.payment_id, 'instalation': q.instalation_id } 
+                                  for q in query ]}        
         jd=json.dumps(res)
         return HttpResponse(jd, content_type='application/json')
     else:
@@ -220,55 +226,56 @@ def index(request):
             u = request.user.profile
         else:
             u='Guest'
-        return render_to_response('restaurant/index.html', locals(), context_instance=RequestContext(request)) 
+        return render_to_response('restaurant/index.html', 
+                                  locals(), 
+                                  context_instance=RequestContext(request)
+                                 ) 
 
 
 def valida_query(dropdowntxt, tablevalue):
        #Precio
         if tablevalue==1:
             print 'entro a 1'
-            table = Pricerange.objects.get(type_price=dropdowntxt) #Obtenemos el tipo
-            query = Restaurant.objects.filter(price_range_id=table.id)#Obtenemos los que coinciden
+            table = Pricerange.objects.get(type_price=dropdowntxt) 
+            query = Restaurant.objects.filter(price_range_id=table.id)
         #instalation
         if tablevalue==2:
             print 'entro a 2'
-            table = Instalation.objects.get(type_instalation=dropdowntxt) #Obtenemos el tipo
-            query = Restaurant.objects.filter(instalation_id=table.id)#Obtenemos los que coinciden
+            table = Instalation.objects.get(type_instalation=dropdowntxt) 
+            query = Restaurant.objects.filter(instalation_id=table.id)
         #Parking
         if tablevalue==3:
             print 'entro a 3'
-            table = Parking.objects.get(type_parking=dropdowntxt) #Obtenemos el tipo
-            query = Restaurant.objects.filter(parking_id=table.id)#Obtenemos los que coinciden     
+            table = Parking.objects.get(type_parking=dropdowntxt) 
+            query = Restaurant.objects.filter(parking_id=table.id) 
         #Atmosphere
         if tablevalue==4:
             print 'entro a 4'
-            table = Atmosphere.objects.get(type_atmosphere=dropdowntxt) #Obtenemos el tipo
-            query = Restaurant.objects.filter(atmosphere_id=table.id)#Obtenemos los que coinciden
+            table = Atmosphere.objects.get(type_atmosphere=dropdowntxt) 
+            query = Restaurant.objects.filter(atmosphere_id=table.id)
         #Payment
         if tablevalue==5:
             print 'entro a 5'
-            table = Payment.objects.get(type_payment=dropdowntxt) #Obtenemos el tipo
-            query = Restaurant.objects.filter(payment_id=table.id)#Obtenemos los que coinciden
+            table = Payment.objects.get(type_payment=dropdowntxt)
+            query = Restaurant.objects.filter(payment_id=table.id)
         #Dresscode
         if tablevalue==6:
             print 'entro a 6'
-            table = Dresscode.objects.get(type_dresscode=dropdowntxt) #Obtenemos el tipo
-            query = Restaurant.objects.filter(dress_code_id=table.id)#Obtenemos los que coinciden
+            table = Dresscode.objects.get(type_dresscode=dropdowntxt)
+            query = Restaurant.objects.filter(dress_code_id=table.id)
         #Alcohol
         if tablevalue==7:
             print 'entro a 7'
-            table = Alcohol.objects.get(type_alcohol=dropdowntxt) #Obtenemos el tipo
-            query = Restaurant.objects.filter(alcohol_id=table.id)#Obtenemos los que coinciden
+            table = Alcohol.objects.get(type_alcohol=dropdowntxt) 
+            query = Restaurant.objects.filter(alcohol_id=table.id)
         #Cuisine
         if tablevalue==8:
             print 'entro a 8'
-            table = Cuisine.objects.get(type_cuisine=dropdowntxt) #Obtenemos el tipo
-            query = Restaurant.objects.filter(cuisine_id=table.id)#Obtenemos los que coinciden
+            table = Cuisine.objects.get(type_cuisine=dropdowntxt)
+            query = Restaurant.objects.filter(cuisine_id=table.id)
         return query, table
 
-    
-#CREAR EL PERFIL DEL USUARIO CON DATOS DE CONTEXTO, SE ACTUALIZA EL CONTEXTO
-#CADA VEZ QUE EL USUARIO INTRODUCE NUEVOS DATOS.
+#Creates user profile with context.
 def userprofile(request, iduser): 
     u = request.user.profile
     if request.method=='POST':
@@ -286,20 +293,28 @@ def userprofile(request, iduser):
             u.cuisine=cuisine
             u.save()
             form=ProfileForm(request.POST)
-            return render_to_response('restaurant/userprofile.html',locals(), context_instance=RequestContext(request))
+            return render_to_response('restaurant/userprofile.html',
+                                      locals(), 
+                                      context_instance=RequestContext(request)
+                                     )
         else:
             metodo = request.method
             form=ProfileForm(request.GET)
             form.errors
-            return render_to_response('restaurant/userprofile.html',locals(), context_instance=RequestContext(request))
+            return render_to_response('restaurant/userprofile.html',
+                                      locals(), 
+                                      context_instance=RequestContext(request)
+                                     )
     else:
             form = ProfileForm()
             formuser=UserForm(request.POST)
             metodo = request.method
-            return render_to_response('restaurant/userprofile.html',locals(), context_instance=RequestContext(request)) 
+            return render_to_response('restaurant/userprofile.html',
+                                      locals(), 
+                                      context_instance=RequestContext(request)
+                                     ) 
 
-
-#VER EL PERFIL DE UN USUARIO REGISTRADO.
+#Show user profile in template.
 def temp_user(request,iduser):
     u = request.user.profile
     user = User.objects.get(id=u.user.id)
@@ -313,7 +328,7 @@ def temp_user(request,iduser):
         r = Restaurant.objects.get(id=i.id_item.id)
         fv.append(r)
     price=""
-    #Rango de precios que prefiere el usuario.
+    #Prece ranges.
     if(u.price==1):
         price='Very cheap'
     if(u.price==2):
@@ -324,12 +339,13 @@ def temp_user(request,iduser):
         price='Expensive'
     if(u.price==5):
         price='Very expensive'
-    return render_to_response('restaurant/temp_user.html',locals(),
-                              context_instance=RequestContext(request)) 
-
+    return render_to_response('restaurant/temp_user.html',
+                              locals(),
+                              context_instance=RequestContext(request)
+                             ) 
 
 #--------------------------------------------
-#RECOMENDACION FINAL PARA EL USUARIO ACTIVO.
+#Final recommendation for users.
 #--------------------------------------------
 def recommendations_view(request,iduser):    
     u = request.user.profile
@@ -350,43 +366,53 @@ def recommendations_view(request,iduser):
             if dis<=2.0 and i not in restnear:
                     restnear.append(i)
                     dp = Distance_poi(user = request.user.profile, 
-                                      date=now, latitude=i.latitude, 
+                                      date=now, 
+                                      latitude=i.latitude, 
                                       longitude=i.longitude, 
-                                      poi=i, dis=dis, recom=1)
+                                      poi=i, 
+                                      dis=dis, 
+                                      recom=1)
                     dp.save()
     if bc_item:
         for i in bc_item:
             dis = dist_haversine(32.529084, -116.9885298, i.latitude, i.longitude)
             if dis<=2.0 and i not in restnear:
-                print 'i...', i
                 restnear.append(i)
                 dp = Distance_poi(user = request.user.profile, 
-                                  date=now, latitude=i.latitude, 
+                                  date=now, 
+                                  latitude=i.latitude, 
                                   longitude=i.longitude, 
-                                  poi=i, dis=dis, recom=2)
+                                  poi=i, 
+                                  dis=dis, 
+                                  recom=2)
                 dp.save()
    if cf_rec:
         for i in cf_rec:
             dis = dist_haversine(32.529084, -116.9885298, i.latitude, i.longitude)
             if dis<=2.0 and i not in restnear:
                     dp = Distance_poi(user = request.user.profile, 
-                                      date=now, latitude=i.latitude, 
+                                      date=now, 
+                                      latitude=i.latitude, 
                                       longitude=i.longitude, 
-                                      poi=i, dis=dis, recom=3)
+                                      poi=i, 
+                                      dis=dis, 
+                                      recom=3)
                     dp.save()
                     restnear.append(i)
     q = Distance_poi.objects.filter(user=u)
-    return render_to_response('restaurant/recomtest.html',locals(),
-                              context_instance=RequestContext(request))
+    return render_to_response('restaurant/recomtest.html',
+                              locals(),
+                              context_instance=RequestContext(request)
+                             )
 
 
-#Anonimous user recommendations by popularity.
+#Anonymous user recommendations by popularity.
 def recomguest(request):
     #-------------------------------------
     # Raings by popularity for each item.
     #-------------------------------------
     ratings = Rating.objects.values_list('user','id_item','rating')
-    #Depurar la lista para eliminar usuarios repetidos.
+    #Clean duplicated items.
     item_list = []
     for i in ratings:
         if i[1] not in item_list:
@@ -403,7 +429,10 @@ def recomguest(request):
                 c=c+1 
                 sum = sum + float(r[2])
         avg=sum/float(c)
-        pop = Popularity (rest = Restaurant.objects.get(id=i) , users_amount = c, rating_avg=float(avg), datet = dt )
+        pop = Popularity (rest = Restaurant.objects.get(id=i) , 
+                          users_amount = c, 
+                          rating_avg=float(avg), 
+                          datet = dt )
         pop.save()
     #avg_list.sort()
     #avg_list.reverse()
@@ -418,8 +447,6 @@ def recomguest(request):
     for i in items1:
         p=Popularity.objects.filter(rest_id=i, rating_avg=5)
         popularity.append(p[0])
-    
-    #popularity = popularity1.filter(datet__gte=date.today())[:10]
     return render_to_response('restaurant/recomguest.html', 
                               {'popularity':popularity, 
                                'item_list':item_list}
@@ -429,8 +456,7 @@ def recomguest(request):
 #------------------------------------------------
 #Weigthed average in the Fuzzy Inference System.
 #------------------------------------------------
-def fisIntegrador(request, iduser):      #id del user 
-#def fisIntegrador(request,id):
+def fisIntegrador(request, iduser): 
     id=iduser
     #Call Content-Based Algorithm.
     profiles, profiles2, p_it, p_it2, bc_item, hd, lis, val2, sim = vec_profiles(id) 
@@ -489,7 +515,7 @@ def fisIntegrador(request, iduser):      #id del user
     # Participation.
     #-----------------------
     ratings = Rating.objects.values_list('user','id_item','rating').filter(
-        interested=0)
+                                        interested=0)
     #Clean duplicated items.
     list_u = []
     for i in ratings:
@@ -514,7 +540,6 @@ def fisIntegrador(request, iduser):      #id del user
         t.append(c)
         #Lista final
         participation.append(t)
-    
     if id in p_us:
         participationUser = len(p_us[id]) 
     else:
@@ -524,7 +549,6 @@ def fisIntegrador(request, iduser):      #id del user
     sum=0
     for i in sim:
         sum =sum + i[0]
-    
     if len(sim)==0:
         averageBC=0
     else:
@@ -625,7 +649,6 @@ def vec_profiles(id):
     p_it = dict([(t[0],{}) for t in profiles])
     for t in profiles:
         p_it[t[0]] = (t[1])
-    #------------------------------------------------------------------
     #Get items.
     rat = Restaurant.objects.all()
     items = []
@@ -675,7 +698,8 @@ def vec_profiles(id):
             if(item==int(r.atmosphere_id)):
                 atmosphere[item-1]=1
         #39 cuisines
-        cuisine = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] 
+        cuisine = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+                   0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0] 
         for item in range(1,40):
             if(item==int(r.cuisine_id)):
                 cuisine[item-1]=1
@@ -729,7 +753,6 @@ def vec_profiles(id):
             if item in bc_item:continue
             bc_item.append(item)
     return profiles, profiles2, p_it, p_it2, bc_item, hd, lis, val2, sim_cos
-
 
 #------------------------------------------------
 #FIS EXPERT RECOMMENDATIONS.
@@ -836,7 +859,6 @@ def fisExpert(id):
     recomExpert.sort()
     return recomExpert, rests
 
-
 #------------------------------------------------------
 #COLLABORATIVE FILTERING ALGORITHM.                   |
 #------------------------------------------------------
@@ -925,20 +947,18 @@ def view_profile(request,id):
     if request.method=='POST':
         #datajson= json.dumps(json.loads(request.body))
         json_data = json.loads(request.body)
-        print 'json.loads(request.body):', json.loads(request.body)
-        print 'dropdownval:', json_data['dropdownval']['0']['value']
         rating = json_data['dropdownval']['0']['value']
         id_item = Item.objects.get(id=id)
         date = datetime.now()
         u = request.user.profile
-        r =Rating(id_item_id=id_item.id, user = u , date=date, rating=rating)
+        r =Rating(id_item_id=id_item.id, 
+                  user = u ,
+                  date=date, 
+                  rating=rating)
         r.save()
         u = request.user.profile
-        r = Restaurant.objects.get(id=id)#Restaurantes nuevos de la B.D.
-        #Voto o rating
-        #ratingform = RatingForm(instance=r)
+        r = Restaurant.objects.get(id=id)
         rat = Rating.objects.filter(id_item=id )
-        #Reviews de los usuarios.
         rev = Review.objects.filter(item=id)
         ratavg =Rating.objects.filter(id_item_id=id)
         sum=0.0
@@ -984,13 +1004,19 @@ def view_profile(request,id):
         if c1>0:
                 percent1 =(c1/float(len(ratavg)))*100.0
 
-        return render_to_response('restaurant/view_profile.html', locals(), 
-                                  context_instance=RequestContext(request))
+        return render_to_response('restaurant/view_profile.html', 
+                                  locals(), 
+                                  context_instance=RequestContext(request)
+                                 )
     else:
-        return render_to_response ('restaurant/view_profile.html', locals(), 
-                                   context_instance=RequestContext(request)) 
-
-# Send reviews to update view_profile.
+        return render_to_response ('restaurant/view_profile.html', 
+                                   locals(), 
+                                   context_instance=RequestContext(request)
+                                  ) 
+    
+#--------------------------------------
+#Send reviews to update view_profile.
+#--------------------------------------
 def addreviewmodal(request, id):
     u = request.user.profile
     restaurant = Restaurant.objects.get(item_id=id)
@@ -999,7 +1025,6 @@ def addreviewmodal(request, id):
     if request.method=='POST':
         datajson = json.dumps(json.loads(request.body))
         json_data =  json.loads(request.body)
-        print 'entro a post', json_data
         title = json_data['title']
         good = json_data['good']
         bad = json_data['bad']
@@ -1044,8 +1069,10 @@ def dist_haversine(lat1,long1,lat2,long2):
     dist=(float(d)/1000.00)
     dis=round(dist,2)    
     return dis
- 
-#User Wishlist.
+
+#------------------
+# User Wishlist.
+#------------------
 def wishlist(request, iduser):
     u = request.user.profile
     #user = User.objects.get(id=id)
@@ -1058,8 +1085,12 @@ def wishlist(request, iduser):
         lis.append(r)
     return render_to_response('restaurant/wishlist.html', 
                               {'u':u, 'id':id, 'lis':lis}, 
-                              context_instance=RequestContext(request))
+                              context_instance=RequestContext(request)
+                             )
+
+#---------------------------
 #Insert items in wishlist.
+#---------------------------
 def addwish(request):
     u = request.user.profile
     now = datetime.now()
@@ -1072,15 +1103,18 @@ def addwish(request):
         wl=Wishlist.objects.filter(rest_id=item, user=u)
         if wl:
             Wishlist.objects.filter( rest_id=item, user=u).delete()
-            #Inserta o actualiza wishlist.
-            #NOTA:no funciona la insercion con u.user_id
-        w = Wishlist(rest_id = item, user= u, in_wishlist=True)
+            #Insert or update wishlist.
+        w = Wishlist(rest_id = item, 
+                     user= u, 
+                     in_wishlist=True)
         w.save()
         msg = {'restaurant':{'item': item }}
         jsd=json.dumps(msg)
     return HttpResponse(jsd, content_type='application/json')
 
+#--------------------------------------------------
 #Insert item in wishlist from restaurant profile.
+#--------------------------------------------------
 def addwish3(request):
     u = request.user.profile
     now = datetime.now()
@@ -1100,7 +1134,9 @@ def addwish3(request):
         jsd=json.dumps(msg)     
     return HttpResponse(jsd, content_type='application/json')
 
+#-----------------------------
 #Delete item from wishlist.
+#-----------------------------
 def delete_wishlist(request):
     u = request.user.profile
     if request.method == 'POST':
@@ -1135,7 +1171,9 @@ def delete_wishlist(request):
         return HttpResponse(jsd, content_type='application/json')
     return render_to_response('restaurant/wishlist.html', locals()) 
 
+#------------------------------
 #Delete all items of wishlist.
+#------------------------------
 def delete_all(request):
     u = request.user.profile
     Wishlist.objects.filter(user=u).delete()
@@ -1143,7 +1181,9 @@ def delete_all(request):
                               locals(), 
                               context_instance=RequestContext(request)) 
 
+#--------------------------------
 #Contextualized recommendations.
+#--------------------------------
 def recomtest(request):
     u = request.user.profile
     q = Distance_poi.objects.filter(user=u)
@@ -1151,7 +1191,9 @@ def recomtest(request):
     rat = Rating.objects.filter(user=u) 
     print 'rat', rat
     if rat:   
-        w_avg, g_avg, rExp, pc, pr, sim,  profileVectors, itemsUser, recomend, bc_item, rests, cf_rec = fisIntegrador(request, u.id)
+        w_avg, g_avg, rExp, pc, pr, sim,  profileVectors, itemsUser, recomend, bc_item, rests, cf_rec = 
+        fisIntegrador(request, u.id)
+        #Insert with post method.
         if request.method=='POST':
             print 'entro a post'
             u = request.user.profile
@@ -1166,10 +1208,13 @@ def recomtest(request):
             print now
             restnear=[]
             if rests:
-                    print rests[0]
                     for i in rests:
                         if not u.latitude and not u.longitude:continue
-                        dis = dist_haversine(float(u.latitude),float( u.longitude), float(i.latitude), float(i.longitude))
+                        dis = dist_haversine(float(u.latitude),
+                                             float( u.longitude), 
+                                             float(i.latitude), 
+                                             float(i.longitude)
+                                            )
                         if dis<=2.0 and i not in restnear:
                                 restnear.append(i)
                                 #Se puede optimizar utilizando listas.
@@ -1184,7 +1229,10 @@ def recomtest(request):
                     print bc_item[0]
                     for i in bc_item:
                         if not u.latitude and not u.longitude:continue
-                        dis = dist_haversine(u.latitude, u.longitude, i.latitude, i.longitude)
+                        dis = dist_haversine(u.latitude, 
+                                             u.longitude, 
+                                             i.latitude, 
+                                             i.longitude)
                         if dis<=2.0 and i not in restnear:
                             restnear.append(i)
                             dp = Distance_poi(user = request.user.profile, 
@@ -1198,7 +1246,10 @@ def recomtest(request):
             if cf_rec:
                     for i in cf_rec:
                         if not u.latitude and not u.longitude:continue
-                        dis = dist_haversine(u.latitude, u.longitude, i.latitude, i.longitude)
+                        dis = dist_haversine(u.latitude, 
+                                             u.longitude, 
+                                             i.latitude, 
+                                             i.longitude)
                         if dis<=2.0 and i not in restnear:
                                 dp = Distance_poi(user = request.user.profile, 
                                                   date=now, 
@@ -1246,7 +1297,6 @@ def recomtest(request):
                                               'value': str(value) }  for q in jd ]}
                         jsd=json.dumps(res)
             if value=='4':
-                        #los mas cercanos al usuario.
                         jd=Distance_poi.objects.filter(user=u)
                         if u.latitude:
                             res = {'restaurant':[{'user_id': q.user_id, 'date':str(q.date), 'poi_id': q.poi_id, 
@@ -1267,10 +1317,14 @@ def recomtest(request):
     else: 
         msg = "You didn't add any rating. Please vote to get recommendations."
             
-    return render_to_response('restaurant/recomtest.html',locals(), 
-                              context_instance=RequestContext(request))
+    return render_to_response('restaurant/recomtest.html',
+                              locals(), 
+                              context_instance=RequestContext(request)
+                             )
 
+#------------------------------------------
 #Get user location(latitude, longitude).
+#------------------------------------------
 def currentlocation(request):
     #Save location.
     if request.method=='POST':   
@@ -1296,7 +1350,7 @@ def currentlocation(request):
                              date=now, 
                              status='A')
         cp.save()
-        msg="SE INSERTARON LOS DATOS"
+        msg="Saved data."
     return HttpResponse(msg, content_type='application/json')
 
 def addRatingIndex(request):
@@ -1316,6 +1370,9 @@ def addRatingIndex(request):
         jsd=json.dumps(msg)
     return HttpResponse(jsd, content_type='application/json')
 
+#---------------------------
+# If review is helpful.
+#---------------------------
 def isHelpful(request):
     u = request.user.profile
     date = datetime.now()
@@ -1327,18 +1384,17 @@ def isHelpful(request):
         item = int(json_data['iditem'])
         r=Review.objects.get(id=item)
         rest = Restaurant.objects.get(item_id=r.restaurant)
-        print 'rest', rest
         r.is_helpful=True
-        print r.is_helpful
         r.save()
         r.helpful=r.helpful+1
-        print r.helpful
         r.save()
         msg = {'restaurant':{'item': item, 'rest':rest.item_id }}
         jsd=json.dumps(msg)
     return HttpResponse(jsd, content_type='application/json')
 
+#---------------------
 #Get popular items.
+#---------------------
 def topten(request):
     #-----------------------
     # Reviews of all users.
