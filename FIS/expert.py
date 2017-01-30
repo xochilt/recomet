@@ -1,5 +1,4 @@
 #!/usr/bin/env python
-#!/usr/bin/env python
 from FIS import * 
 
 # Variable
@@ -43,7 +42,6 @@ r5 = FuzzyRule()
 r5.antecedent.append(FuzzyOperator('and',FuzzyProposition(rating,rating.mfs['low']),FuzzyProposition(votes,votes.mfs['insufficient'])))
 r5.consequent.append(FuzzyProposition(recommendation,recommendation.mfs['low']))
 
-
 reglas = [r1,r2,r3,r4,r5]
  
 fis = FIS(reglas)
@@ -56,4 +54,3 @@ def eval(r,p,v):
 
 if __name__ == '__main__':
     pass
-    #eval(5.0,0.0,5.0)
